@@ -1,0 +1,11 @@
+#top-title {
+  text-align: center;
+  margin-top: 20px;
+}
+
+#login-form {
+  padding: 30px;
+}
+#login-button {
+  width: 100%;
+}

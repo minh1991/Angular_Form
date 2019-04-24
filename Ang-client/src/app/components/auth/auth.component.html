@@ -1,0 +1,53 @@
+<div class="container">
+  <div class="row">
+    <div class="col-12">
+      <h3 id="top-title">Angular Form</h3>
+      <ul class="nav nav-tabs" id="myTab" role="tablist">
+        <li class="nav-item col-6">
+          <a
+            class="nav-link active"
+            id="login-tab"
+            data-toggle="tab"
+            href="#home"
+            role="tab"
+            aria-controls="home"
+            aria-selected="true"
+            style="text-align: center;font-size: 1.5rem;font-weight: 500;"
+            >Login</a
+          >
+        </li>
+        <li class="nav-item col-6">
+          <a
+            class="nav-link"
+            id="signup-tab"
+            data-toggle="tab"
+            href="#profile"
+            role="tab"
+            aria-controls="profile"
+            aria-selected="false"
+            style="text-align: center;font-size: 1.5rem;font-weight: 500;"
+            >Sign Up</a
+          >
+        </li>
+      </ul>
+      <div class="tab-content" id="myTabContent">
+        <div
+          class="tab-pane fade show active"
+          id="home"
+          role="tabpanel"
+          aria-labelledby="home-tab"
+        >
+          <app-login></app-login>
+        </div>
+        <div
+          class="tab-pane fade"
+          id="profile"
+          role="tabpanel"
+          aria-labelledby="profile-tab"
+        >
+          <app-sign-up></app-sign-up>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
