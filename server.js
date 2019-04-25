@@ -5,6 +5,8 @@ const cookieParser = require("cookie-parser");
 const morgan = require("morgan");
 const cors = require("cors");
 const auth = require("./routers/auth.router");
+const profile = require("./routers/profile.router");
+const passport = require("passport");
 
 const app = express();
 
@@ -13,7 +15,11 @@ app.use(express.json({ limit: "50mb" }));
 app.use(express.urlencoded({ extended: true, limit: "50mb" }));
 app.use(cookieParser());
 app.use(morgan("dev"));
-app.use("/api/app", auth);
+app.use(passport.initialize());
+require("./config/passport")(passport);
+
+app.use("/api/user", auth);
+app.use("/api/profile", profile);
 
 // DATA BASE
 mongoose.Promise = global.Promise;
