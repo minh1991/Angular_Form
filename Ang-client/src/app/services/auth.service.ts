@@ -6,7 +6,7 @@ const httpOptions = {
   headers: new HttpHeaders({ "Content-Type": "application/json" })
 };
 
-const BASEURL = "http://localhost:3000/api/user/";
+const BASEURL = "http://localhost:3000/api/user";
 
 @Injectable({
   providedIn: "root"

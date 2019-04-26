@@ -10,8 +10,8 @@ import { TokenService } from "./../../services/token.service";
   styleUrls: ["./sign-up.component.css"]
 })
 export class SignUpComponent implements OnInit {
-  public signUpUser: FormGroup;
-
+  public signupForm: FormGroup;
+  public errorMessage: string;
   constructor(
     private authService: AuthService,
     private formBuilder: FormBuilder,
@@ -20,6 +20,28 @@ export class SignUpComponent implements OnInit {
   ) {}
 
   ngOnInit() {
-    this.signUpUser = this.formBuilder.group({});
+    this.init();
+  }
+  init() {
+    this.signupForm = this.formBuilder.group({
+      username: ["", Validators.required],
+      email: ["", [Validators.email, Validators.required]],
+      password: ["", Validators.required]
+    });
+  }
+
+  onSubmit() {
+    this.authService.signUpUser(this.signupForm.value).subscribe(
+      data => {
+        this.tokenService.SetToken(data.token);
+        console.log(data);
+        this.signupForm.reset();
+        // this.router.navigate(['table'])
+      },
+      err => {
+        console.log(err);
+        this.errorMessage = err.error.message;
+      }
+    );
   }
 }
