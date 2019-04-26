@@ -41,7 +41,7 @@ const ProfileSchema = new mongoose.Schema({
     type: String,
     required: true
   },
-  work: {
+  worked: {
     type: String,
     required: true
   },

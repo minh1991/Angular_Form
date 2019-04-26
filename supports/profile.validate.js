@@ -39,10 +39,10 @@ module.exports = function validateProfileInput(data) {
   } else {
     data.skills = "";
   }
-  if (!isEmpty(data.word)) {
-    data.work = data.work;
+  if (!isEmpty(data.worked)) {
+    data.worked = data.worked;
   } else {
-    data.work = "";
+    data.worked = "";
   }
   if (!isEmpty(data.status)) {
     data.status = data.status;
@@ -69,7 +69,7 @@ module.exports = function validateProfileInput(data) {
   }
 
   // VALIDATE PHONE
-  if (validator.isMobilePhone(data.phone["vi-VN"])) {
+  if (!validator.isMobilePhone(data.phone, "vi-VN")) {
     errors.phone = "Phone sai đinh dạng di động Việt Nam";
   }
 
@@ -93,12 +93,12 @@ module.exports = function validateProfileInput(data) {
   }
 
   // VALIDATE WORK
-  if (!validator.isLength(data.work, { min: 2, max: 30 })) {
-    errors.work = "công việc gần nhất phải dài từ 2 ký tự đến 30 ký tự";
+  if (!validator.isLength(data.worked, { min: 2, max: 30 })) {
+    errors.worked = "công việc gần nhất phải dài từ 2 ký tự đến 30 ký tự";
   }
 
-  if (validator.isEmpty(data.work)) {
-    errors.work = "công việc gần nhất không được bỏ trống";
+  if (validator.isEmpty(data.worked)) {
+    errors.worked = "công việc gần nhất không được bỏ trống";
   }
 
   // VALIDATE STATUS
