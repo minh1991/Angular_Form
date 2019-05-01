@@ -35,7 +35,7 @@ export class LoginComponent implements OnInit {
         this.tokenService.SetToken(data.token);
         console.log(data);
         this.loginForm.reset();
-        // this.router.navigate(["table"]);
+        this.router.navigate(["all"]);
       },
       err => {
         this.errorMessage = err.error.message;

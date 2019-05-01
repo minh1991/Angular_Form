@@ -3,10 +3,10 @@ const mongoose = require("mongoose");
 
 // Cấu hình các trường db
 const ProfileSchema = new mongoose.Schema({
-  user: {
-    type: mongoose.Schema.ObjectId,
-    ref: "users"
-  },
+  // user: {
+  //   type: mongoose.Schema.ObjectId,
+  //   ref: "users"
+  // },
   fullname: {
     type: String,
     required: true,
@@ -19,14 +19,15 @@ const ProfileSchema = new mongoose.Schema({
   },
   birthday: {
     type: Date,
-    required: true
+    required: true,
+    default: Date.now
   },
   address: {
     type: String,
     required: true
   },
   phone: {
-    type: Number,
+    type: String,
     required: true
   },
   degree: {

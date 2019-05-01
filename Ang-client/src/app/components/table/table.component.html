@@ -1,0 +1,61 @@
+<div class="container">
+  <div class="row">
+    <h3>Table Profiles</h3>
+  </div>
+  <div>
+    <button type="button" class="btn btn-primary" (click)="addProfile()">
+      Add Profile
+    </button>
+  </div>
+  <div class="row">
+    <div class="col-12">
+      <table class="table table-striped table-hover">
+        <thead class="thead-inverse">
+          <tr>
+            <th>Cast</th>
+            <th>Fullname</th>
+            <th>Gender</th>
+            <th>BirthDay</th>
+            <th>Address</th>
+            <th>Phone</th>
+            <th>Degree</th>
+            <th>Salary</th>
+            <th>Skills</th>
+            <th>Worked</th>
+            <th>Action</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr *ngFor="let profile of profiles">
+            <td scope="row">{{ profile._id }}</td>
+            <td>{{ profile.fullname }}</td>
+            <td>{{ profile.gender }}</td>
+            <td>{{ profile.birthday }}</td>
+            <td>{{ profile.address }}</td>
+            <td>{{ profile.phone }}</td>
+            <td>{{ profile.degree }}</td>
+            <td>{{ profile.salary }}</td>
+            <td>{{ profile.skills }}</td>
+            <td>{{ profile.worked }}</td>
+            <td style="display: flex">
+              <button
+                (click)="updateProfile(profile)"
+                class="btn btn-info"
+                style="margin: 3px;"
+              >
+                Edit
+              </button>
+              <button
+                (click)="deleteProfile(profile._id, addProfileForm)"
+                class="btn btn-danger"
+                style="margin: 3px;"
+              >
+                Delete
+              </button>
+            </td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+</div>

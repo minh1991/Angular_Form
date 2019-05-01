@@ -1,7 +1,7 @@
-module.exports = function InputProfileFields(inputs, userId) {
+module.exports = function InputProfileFields(inputs) {
   const inputFields = {};
 
-  inputFields.user = userId;
+  // inputFields.user = userId;
 
   if (inputs.fullname) {
     inputFields.fullname = inputs.fullname;

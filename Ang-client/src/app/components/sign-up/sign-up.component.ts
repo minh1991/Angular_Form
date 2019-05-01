@@ -36,11 +36,12 @@ export class SignUpComponent implements OnInit {
         this.tokenService.SetToken(data.token);
         console.log(data);
         this.signupForm.reset();
-        // this.router.navigate(['table'])
+        this.router.navigate(["all"]);
       },
       err => {
         console.log(err);
-        this.errorMessage = err.error.message;
+
+        this.errorMessage = JSON.stringify(err.error.message);
       }
     );
   }

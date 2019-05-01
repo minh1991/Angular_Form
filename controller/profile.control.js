@@ -1,121 +1,219 @@
 const validateProfileInput = require("../supports/profile.validate");
+
 const httpcodes = require("http-status-codes");
 const Profile = require("../models/profile.modal");
-const InputProfileFields = require("../supports/profileFields.input");
+const ObjectId = require("mongoose").Types.ObjectId;
+// const InputProfileFields = require("../supports/profileFields.input");
 
 module.exports = {
-  // AUTH
-  async PasspostProfileAuth(req, res) {
-    const errors = {};
-    Profile.findOne({ user: req.user.id })
-      .populate("user", ["username", "email"])
-      .then(profile => {
-        if (!profile) {
-          errors.noProfile = "Không có hồ sơ của người dùng này";
-          return res.status(httpcodes.NOT_FOUND).json(errors);
-        } else {
-          return res.status(httpcodes.ACCEPTED).json(profile);
-        }
-      })
-      .catch(err => {
-        return res.status(httpcodes.NOT_FOUND).json(err);
-      });
-  },
-
   //SHOW ALL
   async AllProfiles(req, res) {
     const errors = {};
     console.log(errors);
-    Profile.find()
-      .populate("user", ["username", "email"])
-      .then(profile => {
-        console.log(profile);
-        if (!profile) {
-          errors.noProfile = "Không có hồ sơ";
-          return res.status(httpcodes.NOT_FOUND).json(errors);
-        } else {
-          return res.status(httpcodes.ACCEPTED).json(profile);
-        }
-      })
-      .catch(err => {
-        console.log(err);
-        return res
-          .status(httpcodes.NOT_FOUND)
-          .json({ profile: "Profile All errors" });
-      });
+    Profile.find((err, docs) => {
+      if (!err) {
+        return res.status(httpcodes.ACCEPTED).json(docs);
+      } else {
+        console.log("All profile errors: " + JSON.stringify(err, undefined, 2));
+        return res.status(httpcodes.BAD_REQUEST).json(err);
+      }
+    });
+  },
+  // INPUT PROFILE
+  async InputProfile(req, res) {
+    const { errors, isValid } = validateProfileInput(req.body);
+    const inputFields = new Profile({
+      fullname: req.body.fullname,
+      gender: req.body.gender,
+      birthday: req.body.birthday,
+      address: req.body.address,
+      phone: req.body.phone,
+      degree: req.body.degree,
+      salary: req.body.salary,
+      skills: req.body.skills,
+      worked: req.body.worked,
+      status: req.body.status,
+      imgULR: req.body.imgULR
+    });
+    if (!isValid) {
+      return res.status(httpcodes.BAD_REQUEST).json(errors);
+    }
+    inputFields.save((err, doc) => {
+      if (!err) {
+        return res.status(httpcodes.ACCEPTED).json(doc);
+      } else {
+        console.log(
+          "Input profile errors: " + JSON.stringify(err, undefined, 2)
+        );
+        return res.status(httpcodes.BAD_REQUEST).json(err);
+      }
+    });
   },
 
   // SHOW ID
   async IdProfile(req, res) {
-    const errors = {};
-    Profile.findOne({ user: req.params.user_id })
-      .populate("user", ["username", "email"])
-      .then(profile => {
-        if (!profile) {
-          errors.noProfile = "Không có hồ sơ người dùng này";
-          return res.status(httpcodes.NOT_FOUND).json(errors);
+    if (!ObjectId.isValid(req.params.id)) {
+      return res
+        .status(httpcodes.BAD_REQUEST)
+        .json(`không có id: ${req.params.id}`);
+    } else {
+      Profile.findById(req.params.id, (err, doc) => {
+        if (!err) {
+          return res.status(httpcodes.ACCEPTED).json(doc);
         } else {
-          return res.status(httpcodes.ACCEPTED).json(profile);
+          console.log(
+            "ID profile errors: " + JSON.stringify(err, undefined, 2)
+          );
+          return res.status(httpcodes.BAD_REQUEST).json(err);
         }
-      })
-      .catch(err => {
-        console.log(err);
-        return res
-          .status(httpcodes.NOT_FOUND)
-          .json({ profile: "Không có hồ sơ người dùng này" });
       });
+    }
   },
 
-  // INPUT PROFILE
-  async InputProfile(req, res) {
-    const { errors, isValid } = validateProfileInput(req.body);
-    const inputFields = InputProfileFields(req.body, req.user.id);
-    if (!isValid) {
-      return res.status(httpcodes.BAD_REQUEST).json(errors);
-    }
-    Profile.findOne({ user: req.user.id }).then(profile => {
-      // UPDATE
-      if (profile) {
-        Profile.findOneAndUpdate(
-          { user: req.user.id },
-          { $set: inputFields },
-          { new: true }
-        )
-          .then(profile => {
-            return res
-              .status(httpcodes.ACCEPTED)
-              .json({ message: "Update Profile thành công", profile });
-          })
-          .catch(err => {
-            console.log(`lỗi update ${err}`);
-            return res
-              .status(httpcodes.BAD_REQUEST)
-              .json({ profile: "Lỗi quá trình update" });
-          });
-      }
-      //CREATE
-      else {
-        Profile.findOne({ user: req.user.id }).then(profile => {
-          if (profile) {
-            errors.user = "đã tồn tại";
-            res.status(httpcodes.BAD_REQUEST).json(errors);
+  async updateProfile(req, res) {
+    if (!ObjectId.isValid(req.params.id)) {
+      return res
+        .status(httpcodes.BAD_REQUEST)
+        .json(`không có id: ${req.params.id}`);
+    } else {
+      const inputFields = {
+        fullname: req.body.fullname,
+        gender: req.body.gender,
+        birthday: req.body.birthday,
+        address: req.body.address,
+        phone: req.body.phone,
+        degree: req.body.degree,
+        salary: req.body.salary,
+        skills: req.body.skills,
+        worked: req.body.worked,
+        status: req.body.status,
+        imgULR: req.body.imgULR
+      };
+      Profile.findByIdAndUpdate(
+        req.params.id,
+        { $set: inputFields },
+        { new: true },
+        (err, doc) => {
+          if (!err) {
+            return res.status(httpcodes.ACCEPTED).json(doc);
+          } else {
+            console.log(
+              "Update profile errors: " + JSON.stringify(err, undefined, 2)
+            );
+            return res.status(httpcodes.BAD_REQUEST).json(err);
           }
-          console.log(inputFields);
-          new Profile(inputFields)
-            .save()
-            .then(profile => {
-              return res
-                .status(httpcodes.ACCEPTED)
-                .json({ message: "Create Profile thành công", profile });
-            })
-            .catch(err => {
-              console.log(`save lỗi ${err}`);
-              return res
-                .status(httpcodes.BAD_REQUEST)
-                .json({ profile: "Lỗi quá trình Save" });
-            });
-        });
-      }
-    });
+        }
+      );
+    }
+  },
+
+  async deleteProfile(req, res) {
+    if (!ObjectId.isValid(req.params.id)) {
+      return res
+        .status(httpcodes.BAD_REQUEST)
+        .json(`không có id: ${req.params.id}`);
+    } else {
+      Profile.findByIdAndRemove(req.params.id, (err, doc) => {
+        if (!err) {
+          return res.status(httpcodes.ACCEPTED).json(doc);
+        } else {
+          console.log(
+            "Delete profile errors: " + JSON.stringify(err, undefined, 2)
+          );
+          return res.status(httpcodes.BAD_REQUEST).json(err);
+        }
+      });
+    }
   }
+
+  // // INPUT PROFILE
+  // async InputProfile(req, res) {
+  //   const { errors, isValid } = validateProfileInput(req.body);
+  //   const inputFields = InputProfileFields(req.body, req.user.id);
+  //   if (!isValid) {
+  //     return res.status(httpcodes.BAD_REQUEST).json(errors);
+  //   }
+  //   Profile.findOne({ user: req.user.id }).then(profile => {
+  //     // UPDATE
+  //     if (profile) {
+  //       Profile.findOneAndUpdate(
+  //         { user: req.user.id },
+  //         { $set: inputFields },
+  //         { new: true }
+  //       )
+  //         .then(profile => {
+  //           return res
+  //             .status(httpcodes.ACCEPTED)
+  //             .json({ message: "Update Profile thành công", profile });
+  //         })
+  //         .catch(err => {
+  //           console.log(`lỗi update ${err}`);
+  //           return res
+  //             .status(httpcodes.BAD_REQUEST)
+  //             .json({ profile: "Lỗi quá trình update" });
+  //         });
+  //     }
+  //     //CREATE
+  //     else {
+  //       Profile.findOne({ user: req.user.id }).then(profile => {
+  //         if (profile) {
+  //           errors.user = "đã tồn tại";
+  //           res.status(httpcodes.BAD_REQUEST).json(errors);
+  //         }
+  //         console.log(inputFields);
+  //         new Profile(inputFields)
+  //           .save()
+  //           .then(profile => {
+  //             return res
+  //               .status(httpcodes.ACCEPTED)
+  //               .json({ message: "Create Profile thành công", profile });
+  //           })
+  //           .catch(err => {
+  //             console.log(`save lỗi ${err}`);
+  //             return res
+  //               .status(httpcodes.BAD_REQUEST)
+  //               .json({ profile: "Lỗi quá trình Save" });
+  //           });
+  //       });
+  //     }
+  //   });
+  // },
+  // // SHOW ID
+  // async IdProfile(req, res) {
+  //   const errors = {};
+  //   Profile.findOne({ user: req.params.user_id })
+  //     .populate("user", ["username", "email"])
+  //     .then(profile => {
+  //       if (!profile) {
+  //         errors.noProfile = "Không có hồ sơ người dùng này";
+  //         return res.status(httpcodes.NOT_FOUND).json(errors);
+  //       } else {
+  //         return res.status(httpcodes.ACCEPTED).json(profile);
+  //       }
+  //     })
+  //     .catch(err => {
+  //       console.log(err);
+  //       return res
+  //         .status(httpcodes.NOT_FOUND)
+  //         .json({ profile: "Không có hồ sơ người dùng này" });
+  //     });
+  // }
+
+  // AUTH
+  // async PasspostProfileAuth(req, res) {
+  //   const errors = {};
+  //   Profile.findOne({ user: req.user.id })
+  //     .populate("user", ["username", "email"])
+  //     .then(profile => {
+  //       if (!profile) {
+  //         errors.noProfile = "Không có hồ sơ của người dùng này";
+  //         return res.status(httpcodes.NOT_FOUND).json(errors);
+  //       } else {
+  //         return res.status(httpcodes.ACCEPTED).json(profile);
+  //       }
+  //     })
+  //     .catch(err => {
+  //       return res.status(httpcodes.NOT_FOUND).json(err);
+  //     });
+  // },
 };

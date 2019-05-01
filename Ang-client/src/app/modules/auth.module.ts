@@ -7,8 +7,14 @@ import { LoginComponent } from "./../components/login/login.component";
 import { SignUpComponent } from "./../components/sign-up/sign-up.component";
 import { AuthService } from "./../services/auth.service";
 import { TokenService } from "./../services/token.service";
+import { ErrorsValidateComponent } from "./../components/errors-validate/errors-validate.component";
 @NgModule({
-  declarations: [AuthComponent, LoginComponent, SignUpComponent],
+  declarations: [
+    AuthComponent,
+    LoginComponent,
+    SignUpComponent,
+    ErrorsValidateComponent
+  ],
   imports: [CommonModule, HttpClientModule, FormsModule, ReactiveFormsModule],
 
   exports: [AuthComponent, LoginComponent, SignUpComponent],

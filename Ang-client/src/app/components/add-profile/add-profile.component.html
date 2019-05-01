@@ -1,0 +1,222 @@
+<div class="container">
+  <div class="row">
+    <div class="col-12">
+      <h3 id="title">Add Profile</h3>
+    </div>
+  </div>
+
+  <div class="row">
+    <div class="col-12">
+      <form
+        #addProfileForm="ngForm"
+        (ngSubmit)="onSubmitAddForm(addProfileForm)"
+      >
+        <div class="form-group">
+          <input
+            type="hidden"
+            class="form-control"
+            name="_id"
+            #_id="ngModel"
+            [(ngModel)]="profileService.selectedProfile._id"
+          />
+        </div>
+
+        <div class="form-group">
+          <label for="">Full Name: </label>
+          <input
+            type="text"
+            class="form-control"
+            name="fullname"
+            #fullname="ngModel"
+            [(ngModel)]="profileService.selectedProfile.fullname"
+          />
+        </div>
+
+        <div class="col-6">
+          <label for="gender">Gender: </label>
+          <div class="form-check form-check-inline">
+            <label class="form-check-label">
+              <input
+                class="form-check-input"
+                type="radio"
+                value="male"
+                name="gender"
+                #gender="ngModel"
+                [(ngModel)]="profileService.selectedProfile.gender"
+              />
+              Nam
+            </label>
+            <label class="form-check-label">
+              <input
+                class="form-check-input"
+                type="radio"
+                value="female"
+                name="gender"
+                #gender="ngModel"
+                [(ngModel)]="profileService.selectedProfile.gender"
+              />
+              Nữ
+            </label>
+          </div>
+        </div>
+
+        <div class="form-group">
+          <label for="">Birthday: </label>
+          <input
+            type="date"
+            class="form-control"
+            name="birthday"
+            #birthday="ngModel"
+            [(ngModel)]="profileService.selectedProfile.birthday"
+          />
+        </div>
+
+        <div class="form-group">
+          <label for="">Address: </label>
+          <input
+            type="text"
+            class="form-control"
+            name="address"
+            #address="ngModel"
+            [(ngModel)]="profileService.selectedProfile.address"
+          />
+        </div>
+
+        <div class="form-group">
+          <label for="">Phone: </label>
+          <input
+            type="number"
+            class="form-control"
+            name="phone"
+            #phone="ngModel"
+            [(ngModel)]="profileService.selectedProfile.phone"
+          />
+        </div>
+
+        <div class="form-group">
+          <label for="">Degree</label>
+          <select
+            class="form-control"
+            name="degree"
+            #degree="ngModel"
+            [(ngModel)]="profileService.selectedProfile.degree"
+          >
+            <option>Trên Đại học</option>
+            <option>Tốt nghiệp đại học</option>
+            <option>Đang học đại học</option>
+            <option>Tốt nghiệp cấp 3</option>
+            <option>Chưa tốt nghiệp cấp 3</option>
+          </select>
+        </div>
+
+        <div class="form-group">
+          <label for="">Salary</label>
+          <select
+            class="form-control"
+            name=""
+            id=""
+            name="salary"
+            #salary="ngModel"
+            [(ngModel)]="profileService.selectedProfile.salary"
+          >
+            <option>Trên 2000$</option>
+            <option>Trên 1000$</option>
+            <option>Trên 500$</option>
+            <option>Trên 100$</option>
+            <option>Chưa có lương cố định</option>
+          </select>
+        </div>
+
+        <h6>Skills:</h6>
+        <div class="form-check" *ngFor="let item of skillsOrders">
+          <label class="form-check-label">
+            <input
+              type="checkbox"
+              class="form-check-input"
+              name="{{ item.name }}"
+              #skills="ngModel"
+              [(ngModel)]="profileService.selectedProfile.skills"
+              value="{{ item.value }}"
+            />{{ item.name }}
+          </label>
+        </div>
+
+        <h5>Worked:</h5>
+        <div class="form-check " *ngFor="let item of worksOrders">
+          <label class="form-check-label">
+            <input
+              class="form-check-input col-6"
+              type="radio"
+              value="{{ item.value }}"
+              name="worked"
+              #worked="ngModel"
+              [(ngModel)]="profileService.selectedProfile.worked"
+            />{{ item.name }}
+          </label>
+        </div>
+        <div class="form-check ">
+          <label class="form-check-label">
+            <input
+              class="form-check-input col-6"
+              type="radio"
+              id="other"
+              name="worked"
+              #worked="ngModel"
+              [(ngModel)]="profileService.selectedProfile.worked"
+              value="other"
+            />
+            Other:
+            <input
+              type="text"
+              id="inputother"
+              (change)="changeOther()"
+              [disabled]="!other"
+              name="worked"
+              #worked="ngModel"
+              [(ngModel)]="profileService.selectedProfile.worked"
+            />
+          </label>
+        </div>
+
+        <div class="form-group">
+          <label for="">Status: </label>
+          <textarea
+            class="form-control"
+            rows="3"
+            name="status"
+            #status="ngModel"
+            [(ngModel)]="profileService.selectedProfile.status"
+          ></textarea>
+        </div>
+
+        <div class="form-group">
+          <label for="">Images: </label>
+          <input
+            type="file"
+            class="form-control-file"
+            name="imgULR"
+            #imgULR="ngModel"
+            [(ngModel)]="profileService.selectedProfile.imgULR"
+          />
+        </div>
+
+        <div class="row">
+          <div class="form-group">
+            <button
+              class="btn btn-primary col-6 ml-2 mr-2"
+              id="add-button"
+              (click)="resetForm(addProfileForm)"
+            >
+              reset
+            </button>
+          </div>
+          <div class="form-group">
+            <button class="btn btn-primary col-6 ml-2 mr-2" id="add-button">
+              Next
+            </button>
+          </div>
+        </div>
+      </form>
+    </div>
+  </div>
+</div>

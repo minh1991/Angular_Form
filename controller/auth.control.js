@@ -11,7 +11,8 @@ module.exports = {
     const { errors, isValid } = validateSignUpInput(req.body);
     console.log(isValid);
     if (!isValid) {
-      return res.status(httpcodes.BAD_REQUEST).json(errors);
+      // console.log({ message: errors });
+      return res.status(httpcodes.BAD_REQUEST).json({ message: errors });
     }
 
     await User.findOne({ email: req.body.email }).then(user => {
