@@ -5,9 +5,10 @@ import { TableComponent } from "./../components/table/table.component";
 import { ProfileService } from "./../services/profile.service";
 import { AddProfileComponent } from "./../components/add-profile/add-profile.component";
 import { HttpClientModule } from "@angular/common/http";
+import { ConfirmProfileComponent } from "./../components/confirm-profile/confirm-profile.component";
 
 @NgModule({
-  declarations: [TableComponent, AddProfileComponent],
+  declarations: [TableComponent, AddProfileComponent, ConfirmProfileComponent],
   exports: [TableComponent, AddProfileComponent],
   imports: [CommonModule, FormsModule, ReactiveFormsModule, HttpClientModule],
   providers: [ProfileService]

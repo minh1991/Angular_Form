@@ -2,7 +2,6 @@ import { Component, OnInit } from "@angular/core";
 import {
   FormBuilder,
   FormGroup,
-  FormControl,
   Validators,
   FormArray,
   NgForm
@@ -19,7 +18,7 @@ export class AddProfileComponent implements OnInit {
   addProfileForm: FormGroup;
   submitted = false;
   formArr: Array<any> = [];
-  skillsOrders = [
+  skillsOrders: Array<any> = [
     { name: "HTML", id: 1 },
     { name: "CSS", id: 2 },
     { name: "JAVASCRIPT", id: 2 },
@@ -31,6 +30,9 @@ export class AddProfileComponent implements OnInit {
     { name: "NO-SQL", id: 8 },
     { name: "SQL", id: 9 }
   ];
+  selectedSkillsValues = [];
+  skillsErrors: Boolean = true;
+
   worksOrders = [
     { name: "Nông dân", value: "Nông dân" },
     { name: "Kỹ sư", value: "Kỹ sư" },
@@ -43,28 +45,74 @@ export class AddProfileComponent implements OnInit {
     { name: "Học sinh, Sinh viên", value: "Học sinh, Sinh viên" }
   ];
 
+  degreeOrders = [
+    "Trên Đại học",
+    "Tốt nghiệp đại học",
+    "Đang học đại học",
+    "Tốt nghiệp cấp 3",
+    "Chưa tốt nghiệp cấp 3"
+  ];
+
+  salaryOrders = [
+    "Trên 2000$",
+    "Trên 1000$",
+    "Trên 500$",
+    "Trên 100$",
+    "Chưa có lương cố định"
+  ];
+
   constructor(
-    // private formBuilder: FormBuilder,
     private router: Router,
-    private profileService: ProfileService
+    private profileService: ProfileService,
+    private formBuilder: FormBuilder
   ) {}
 
   ngOnInit() {
     this.resetForm();
-    // this.addProfileForm = this.formBuilder.group({
-    //   _id: [],
-    //   fullname: ["", Validators.required],
-    //   gender: ["", Validators.required],
-    //   birthday: ["", Validators.required],
-    //   address: ["", Validators.required],
-    //   phone: ["", Validators.required],
-    //   degree: ["", Validators.required],
-    //   salary: ["", Validators.required],
-    //   skills: [],
-    //   worked: ["", Validators.required],
-    //   status: ["", Validators.required],
-    //   imgULR: ["", Validators.required]
-    // });
+    this.addProfileForm = this.formBuilder.group({
+      _id: [],
+      fullname: ["", Validators.required],
+      gender: ["", Validators.required],
+      birthday: ["", Validators.required],
+      address: ["", Validators.required],
+      phone: ["", Validators.required],
+      degree: ["", Validators.required],
+      salary: ["", Validators.required],
+      skills: this.addSkillsControls(),
+      worked: ["", Validators.required],
+      status: ["", Validators.required],
+      imgULR: ["", Validators.required]
+    });
+  }
+
+  addSkillsControls() {
+    const arr = this.skillsOrders.map(elm => {
+      this.formBuilder.control(false);
+    });
+    return this.formBuilder.array(arr);
+  }
+  get skillsArr() {
+    return <FormArray>this.addProfileForm.get("skills");
+  }
+  getSelectedSkillsValue() {
+    this.selectedSkillsValues = [];
+    this.skillsArr.controls.forEach((control, i) => {
+      if (control.value) {
+        this.selectedSkillsValues.push(this.skillsOrders[i]);
+      }
+    });
+    console.log(this.selectedSkillsValues);
+
+    this.skillsErrors = this.selectedSkillsValues.length > 0 ? false : true;
+  }
+  checkSkillsTouched() {
+    let flg = false;
+    this.skillsArr.controls.forEach(control => {
+      if (control.touched) {
+        flg = true;
+      }
+    });
+    return flg;
   }
 
   resetForm(form?: NgForm) {
@@ -87,27 +135,24 @@ export class AddProfileComponent implements OnInit {
     }
   }
 
-  onSubmitAddForm(form: NgForm) {
-    if (form.value._id == "") {
-      this.profileService.postProfile(form.value).subscribe(data => {
-        console.log(data);
-        this.router.navigate(["confirm-profile"]);
-      });
-    } else {
-      this.profileService.updatePutProfile(form.value).subscribe(data => {
-        console.log(data);
-        this.router.navigate(["confirm-profile"]);
-      });
-    }
-  }
+  onSubmitAddForm(addProfileForm) {
+    this.addProfileForm.value.skills = this.selectedSkillsValues;
+    // console.log("form data  ", addProfileForm.value);
+    const formData = this.addProfileForm.value;
+    this.profileService.pushData(formData);
+    console.log(formData);
+    this.router.navigate(["confirm-profile"]);
 
-  // onSubmitAddForm() {
-  //   this.submitted = true;
-  //   this.profileService
-  //     .addProfile(this.addProfileForm.value)
-  //     .subscribe(data => {
-  //       console.log(data);
-  //       this.router.navigate(["all"]);
-  //     });
-  // }
+    // if (formData._id == "") {
+    //   this.profileService.postProfile(formData).subscribe(data => {
+    //     console.log(`Creat New dataForm: ${data}`);
+    //     this.router.navigate(["confirm-profile"]);
+    //   });
+    // } else {
+    //   this.profileService.updatePutProfile(formData).subscribe(data => {
+    //     console.log(`Update dataForm: ${data}`);
+    //     this.router.navigate(["confirm-profile"]);
+    //   });
+    // }
+  }
 }

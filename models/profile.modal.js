@@ -10,6 +10,7 @@ const ProfileSchema = new mongoose.Schema({
   fullname: {
     type: String,
     required: true,
+    min: 2,
     max: 40,
     trim: true
   },
