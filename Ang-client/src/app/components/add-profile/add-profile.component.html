@@ -28,23 +28,11 @@
           <label for="gender">Gender: </label>
           <div class="form-check form-check-inline">
             <label class="form-check-label">
-              <input
-                class="form-check-input"
-                type="radio"
-                value="male"
-                required
-                formControlName="gender"
-              />
+              <input class="form-check-input" type="radio" value="1" required formControlName="gender"/>
               Nam
             </label>
             <label class="form-check-label">
-              <input
-                class="form-check-input"
-                type="radio"
-                value="female"
-                required
-                formControlName="gender"
-              />
+              <input  class="form-check-input" type="radio" value="2" required formControlName="gender"/>
               Nữ
             </label>
           </div>
@@ -125,30 +113,31 @@
         </small>
 
         <h5>Worked:</h5>
+
         <div class="form-check " *ngFor="let item of worksOrders">
           <label class="form-check-label">
-            <input
-              class="form-check-input col-6"
-              type="radio"
-              value="{{ item.value }}"
-              required
-              formControlName="worked"
-            />{{ item.name }}
+            <input class="form-check-input col-6" type="radio" value="{{ item.id }}" required formControlName="worked" (click)="workOther()"
+            />{{ item.value }}
           </label>
+          <!-- <label class="form-check-label">
+              <div>
+                <input class="form-check-input col-6" type="radio" formControlName="worked" value="{{ item.id }}" /> Other:
+              </div>
+            </label> -->
+            <!-- <div *ngIf="checkWork == true">
+                <input type="text" id="inputother"  value="{{ item.id }}"/>
+              </div> -->
         </div>
-        <div class="form-check ">
-          <label class="form-check-label">
-            <input
-              class="form-check-input col-6"
-              type="radio"
-              id="other"
-              formControlName="worked"
-              value="other"
-            />
-            Other:
-            <input type="text" id="inputother" formControlName="worked" />
-          </label>
-        </div>
+        <input class="form-check-input col-6" type="radio"   (click)="workOther()"> Other
+        <div *ngIf="checkWork == true">
+            <input type="text" id="inputother"  value="" formControlName="worked"/>
+          </div>
+        
+
+<!-- 
+        <div class="form-check " *ngFor="let item of worksOrders; let i = index">
+         
+        </div> -->
 
         <div class="form-group">
           <label for="">Status: </label>
@@ -192,303 +181,4 @@
       </form>
     </div>
   </div>
-
-  <!-- <div class="row">
-    <div class="col-12">
-      <form #addProfileForm="ngForm">
-        <div class="form-group">
-          <input type="hidden" class="form-control" name="_id" ngModel />
-        </div>
-
-        <div class="form-group">
-          <label for="">Full Name: </label>
-          <input
-            type="text"
-            name="fullname"
-            ngModel
-            required
-            maxlength="40"
-            minlength="2"
-            #fullname="ngModel"
-            class="form-control"
-          />
-          <small
-            class="custom-invalid-feedback form-text "
-            *ngIf="fullname.errors?.required && fullname.touched"
-            style="background: red; color: white; font-weight: 500"
-          >
-            Không được bỏ trống
-          </small>
-          <small
-            class="custom-invalid-feedback form-text "
-            *ngIf="fullname.errors?.minlength && fullname.touched"
-            style="background: red; color: white; font-weight: 500"
-          >
-            Phải dài hơn 2 ký tự
-          </small>
-          <small
-            class="custom-invalid-feedback form-text "
-            *ngIf="fullname.errors?.maxlength && fullname.touched"
-            style="background: red; color: white; font-weight: 500"
-          >
-            Không được dài hơn 40 ký tự
-          </small>
-        </div>
-
-        <div class="col-6">
-          <label for="gender">Gender: </label>
-          <div class="form-check form-check-inline">
-            <label class="form-check-label">
-              <input
-                class="form-check-input"
-                type="radio"
-                value="male"
-                name="gender"
-                ngModel
-                required
-                #gender="ngModel"
-              />
-              Nam
-            </label>
-            <label class="form-check-label">
-              <input
-                class="form-check-input"
-                type="radio"
-                value="female"
-                name="gender"
-                ngModel
-                required
-                #gender="ngModel"
-              />
-              Nữ
-            </label>
-          </div>
-          <small
-            class="custom-invalid-feedback form-text "
-            *ngIf="gender.errors?.required && gender.touched"
-            style="background: red; color: white; font-weight: 500"
-          >
-            Không được bỏ trống
-          </small>
-        </div>
-
-        <div class="form-group">
-          <label for="">Birthday: </label>
-          <input
-            type="date"
-            class="form-control"
-            name="birthday"
-            ngModel
-            required
-            #birthday="ngModel"
-          />
-          <small
-            class="custom-invalid-feedback form-text "
-            *ngIf="birthday.errors?.required && birthday.touched"
-            style="background: red; color: white; font-weight: 500"
-          >
-            Không được bỏ trống
-          </small>
-        </div>
-
-        <div class="form-group">
-          <label for="">Address: </label>
-          <input
-            type="text"
-            class="form-control"
-            name="address"
-            ngModel
-            required
-            #address="ngModel"
-          />
-          <small
-            class="custom-invalid-feedback form-text "
-            *ngIf="address.errors?.required && address.touched"
-            style="background: red; color: white; font-weight: 500"
-          >
-            Không được bỏ trống
-          </small>
-        </div>
-
-        <div class="form-group">
-          <label for="">Phone: </label>
-          <input
-            type="number"
-            class="form-control"
-            name="phone"
-            ngModel
-            appZipValidator
-            #phone="ngModel"
-          />
-          <small
-            class="custom-invalid-feedback form-text "
-            *ngIf="phone.errors?.required && phone.touched"
-            style="background: red; color: white; font-weight: 500"
-          >
-            {{ phone.errors?.msg }}
-          </small>
-        </div>
-
-        <div class="form-group">
-          <label for="">Degree</label>
-          <select
-            class="form-control"
-            name="degree"
-            ngModel
-            #degree="ngModel"
-            required
-          >
-            <option selected value="">Lựa chọn...</option>
-            <option *ngFor="let item of degreeOrders" [value]="item">{{
-              item
-            }}</option>
-          </select>
-          <small
-            class="custom-invalid-feedback form-text "
-            *ngIf="degree.errors?.required && degree.touched"
-            style="background: red; color: white; font-weight: 500"
-          >
-            Không được bỏ trống
-          </small>
-        </div>
-
-        <div class="form-group">
-          <label for="">Salary</label>
-          <select
-            class="form-control"
-            name=""
-            id=""
-            name="salary"
-            ngModel
-            #salary="ngModel"
-            required
-          >
-            <option selected value="">Lựa chọn...</option>
-            <option *ngFor="let item of salaryOrders" [value]="item">{{
-              item
-            }}</option>
-          </select>
-          <small
-            class="custom-invalid-feedback form-text "
-            *ngIf="salary.errors?.required && salary.touched"
-            style="background: red; color: white; font-weight: 500"
-          >
-            Không được bỏ trống
-          </small>
-        </div>
-
-        <h6>Skills:</h6>
-        <div class="form-check" *ngFor="let item of skillsOrders">
-          <label class="form-check-label">
-            <input
-              type="checkbox"
-              class="form-check-input"
-              name="skills"
-              ngModel
-              value="{{ item.value }}"
-              required
-              #skills="ngModel"
-            />{{ item.name }}
-          </label>
-          <small
-            class="custom-invalid-feedback form-text "
-            *ngIf="skills.errors?.required && skills.touched"
-            style="background: red; color: white; font-weight: 500"
-          >
-            Không được bỏ trống
-          </small>
-        </div>
-
-        <h5>Worked:</h5>
-        <div class="form-check " *ngFor="let item of worksOrders">
-          <label class="form-check-label">
-            <input
-              class="form-check-input col-6"
-              type="radio"
-              value="worked"
-              name="worked"
-              #worked="ngModel"
-              ngModel
-              required
-            />{{ item.name }}
-          </label>
-        </div>
-        <div class="form-check ">
-          <label class="form-check-label">
-            <input
-              class="form-check-input col-6"
-              type="radio"
-              id="other"
-              name="worked"
-              #worked="ngModel"
-              ngModel
-              value="other"
-            />
-            Other:
-            <input
-              type="text"
-              id="inputother"
-              (change)="changeOther()"
-              [disabled]="!other"
-              name="worked"
-              #worked="ngModel"
-              ngModel
-            />
-          </label>
-        </div>
-        <small
-          class="custom-invalid-feedback form-text "
-          *ngIf="worked.errors?.required && worked.touched"
-          style="background: red; color: white; font-weight: 500"
-        >
-          Không được bỏ trống
-        </small>
-
-        <div class="form-group">
-          <label for="">Status: </label>
-          <textarea
-            class="form-control"
-            rows="3"
-            name="status"
-            ngModel
-            #status="ngModel"
-            required
-          ></textarea>
-          <small
-            class="custom-invalid-feedback form-text "
-            *ngIf="status.errors?.required && status.touched"
-            style="background: red; color: white; font-weight: 500"
-          >
-            Không được bỏ trống
-          </small>
-        </div>
-
-        <div class="form-group">
-          <label for="">Images: </label>
-          <input type="file" class="form-control-file" name="imgULR" ngModel />
-        </div>
-
-        <div class="row">
-          <div class="form-group">
-            <button
-              class="btn btn-primary col-12 "
-              id="add-button"
-              (click)="resetForm(addProfileForm)"
-            >
-              reset
-            </button>
-          </div>
-          <div class="form-group">
-            <button
-              class="btn btn-primary col-12 "
-              id="add-button"
-              (click)="onSubmitAddForm(addProfileForm)"
-            >
-              Next
-            </button>
-          </div>
-        </div>
-      </form>
-    </div>
-  </div> -->
 </div>

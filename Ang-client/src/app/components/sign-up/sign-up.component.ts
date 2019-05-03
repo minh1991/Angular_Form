@@ -1,13 +1,13 @@
-import { Component, OnInit } from "@angular/core";
-import { AuthService } from "./../../services/auth.service";
-import { FormGroup, FormBuilder, Validators } from "@angular/forms";
-import { Router } from "@angular/router";
-import { TokenService } from "./../../services/token.service";
+import { Component, OnInit } from '@angular/core';
+import { AuthService } from './../../services/auth.service';
+import { FormGroup, FormBuilder, Validators } from '@angular/forms';
+import { Router } from '@angular/router';
+import { TokenService } from './../../services/token.service';
 
 @Component({
-  selector: "app-sign-up",
-  templateUrl: "./sign-up.component.html",
-  styleUrls: ["./sign-up.component.css"]
+  selector: 'app-sign-up',
+  templateUrl: './sign-up.component.html',
+  styleUrls: ['./sign-up.component.css']
 })
 export class SignUpComponent implements OnInit {
   public signupForm: FormGroup;
@@ -24,9 +24,9 @@ export class SignUpComponent implements OnInit {
   }
   init() {
     this.signupForm = this.formBuilder.group({
-      username: ["", Validators.required],
-      email: ["", [Validators.email, Validators.required]],
-      password: ["", Validators.required]
+      username: ['', Validators.required],
+      email: ['', [Validators.email, Validators.required]],
+      password: ['', Validators.required]
     });
   }
 
@@ -36,7 +36,7 @@ export class SignUpComponent implements OnInit {
         this.tokenService.SetToken(data.token);
         console.log(data);
         this.signupForm.reset();
-        this.router.navigate(["all"]);
+        this.router.navigate(['all']);
       },
       err => {
         console.log(err);

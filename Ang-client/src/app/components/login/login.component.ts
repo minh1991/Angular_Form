@@ -1,13 +1,13 @@
-import { Component, OnInit } from "@angular/core";
-import { FormGroup, FormBuilder, Validators } from "@angular/forms";
-import { Router } from "@angular/router";
-import { AuthService } from "./../../services/auth.service";
-import { TokenService } from "./../../services/token.service";
+import { Component, OnInit } from '@angular/core';
+import { FormGroup, FormBuilder, Validators } from '@angular/forms';
+import { Router } from '@angular/router';
+import { AuthService } from './../../services/auth.service';
+import { TokenService } from './../../services/token.service';
 
 @Component({
-  selector: "app-login",
-  templateUrl: "./login.component.html",
-  styleUrls: ["./login.component.css"]
+  selector: 'app-login',
+  templateUrl: './login.component.html',
+  styleUrls: ['./login.component.css']
 })
 export class LoginComponent implements OnInit {
   public loginForm: FormGroup;
@@ -24,8 +24,8 @@ export class LoginComponent implements OnInit {
   }
   init() {
     this.loginForm = this.formBuilder.group({
-      email: ["", [Validators.required]],
-      password: ["", [Validators.required]]
+      email: ['', [Validators.required]],
+      password: ['', [Validators.required]]
     });
   }
 
@@ -35,7 +35,7 @@ export class LoginComponent implements OnInit {
         this.tokenService.SetToken(data.token);
         console.log(data);
         this.loginForm.reset();
-        this.router.navigate(["all"]);
+        this.router.navigate(['all']);
       },
       err => {
         this.errorMessage = err.error.message;

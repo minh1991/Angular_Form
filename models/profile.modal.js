@@ -1,5 +1,5 @@
 // đường dẫn tới module mongoose
-const mongoose = require("mongoose");
+const mongoose = require('mongoose')
 
 // Cấu hình các trường db
 const ProfileSchema = new mongoose.Schema({
@@ -15,7 +15,7 @@ const ProfileSchema = new mongoose.Schema({
     trim: true
   },
   gender: {
-    type: Boolean,
+    type: String,
     required: true
   },
   birthday: {
@@ -58,8 +58,8 @@ const ProfileSchema = new mongoose.Schema({
     type: Date,
     default: Date.now
   }
-});
+})
 
 // exports model ra để sử dụng
-const Profile = mongoose.model("profile", ProfileSchema);
-module.exports = Profile;
+const Profile = mongoose.model('profile', ProfileSchema)
+module.exports = Profile

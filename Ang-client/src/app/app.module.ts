@@ -1,23 +1,25 @@
-import { BrowserModule } from "@angular/platform-browser";
+import { BrowserModule } from '@angular/platform-browser';
 
-import { NgModule } from "@angular/core";
-import { AuthModule } from "./modules/auth.module";
-import { AppComponent } from "./app.component";
-import { AuthRoutingModule } from "./modules/auth-routing.module";
-import { CookieService } from "ngx-cookie-service";
-import { ProfileModule } from "./modules/profile.module";
-import { FormsModule, ReactiveFormsModule } from "@angular/forms";
-import { ZipValidatorDirective } from "./directives/zip-validator.directive";
+import { NgModule } from '@angular/core';
+import { AuthModule } from './modules/auth.module';
+import { AppComponent } from './app.component';
+import { AuthRoutingModule } from './modules/auth-routing.module';
+import { CookieService } from 'ngx-cookie-service';
+import { ProfileModule } from './modules/profile.module';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
+import { ZipValidatorDirective } from './directives/zip-validator.directive';
+// import { ProfileModel } from './models/profile.model';
+
 
 @NgModule({
   declarations: [AppComponent, ZipValidatorDirective],
   imports: [
-    BrowserModule,
+BrowserModule,
     AuthModule,
     AuthRoutingModule,
     ProfileModule,
     FormsModule,
-    ReactiveFormsModule
+    ReactiveFormsModule,
   ],
   providers: [CookieService],
   bootstrap: [AppComponent]

@@ -1,14 +1,18 @@
-export class profileModel {
+export class ProfileModel {
+  // constructor() {
+  //   this.gender = '1';
+  // }
+  // tslint:disable-next-line:variable-name
   _id: string;
-  fullname: String;
-  gender: boolean;
+  fullname: string;
+  gender: string;
   birthday: Date;
-  address: String;
-  phone: Number;
-  degree: String;
-  salary: String;
-  skills: String;
-  worked: String;
-  status: String;
-  imgULR: String;
+  address: string;
+  phone: number;
+  degree: string;
+  salary: string;
+  skills: string;
+  worked: string;
+  status: string;
+  imgULR: string;
 }

@@ -1,5 +1,5 @@
 // đường dẫn tới module mongoose
-const mongoose = require("mongoose");
+const mongoose = require('mongoose')
 
 // Cấu hình các trường db
 const UserSchema = new mongoose.Schema({
@@ -20,8 +20,8 @@ const UserSchema = new mongoose.Schema({
     type: Date,
     default: Date.now
   }
-});
+})
 
 // exports model ra để sử dụng
-const User = mongoose.model("users", UserSchema);
-module.exports = User;
+const User = mongoose.model('users', UserSchema)
+module.exports = User

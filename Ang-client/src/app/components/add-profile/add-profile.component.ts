@@ -1,88 +1,97 @@
-import { Component, OnInit } from "@angular/core";
+import { Component, OnInit } from '@angular/core';
 import {
   FormBuilder,
   FormGroup,
   Validators,
   FormArray,
   NgForm
-} from "@angular/forms";
-import { ProfileService } from "./../../services/profile.service";
-import { Router } from "@angular/router";
+} from '@angular/forms';
+import { ProfileService } from './../../services/profile.service';
+import { Router } from '@angular/router';
+// import {ProfileModel} from '../../models/profile.model';
 
 @Component({
-  selector: "app-add-profile",
-  templateUrl: "./add-profile.component.html",
-  styleUrls: ["./add-profile.component.css"]
+  selector: 'app-add-profile',
+  templateUrl: './add-profile.component.html',
+  styleUrls: ['./add-profile.component.css']
 })
 export class AddProfileComponent implements OnInit {
+  // profileModel: ProfileModel = new ProfileModel();
   addProfileForm: FormGroup;
+  checkWork = false;
   submitted = false;
   formArr: Array<any> = [];
   skillsOrders: Array<any> = [
-    { name: "HTML", id: 1 },
-    { name: "CSS", id: 2 },
-    { name: "JAVASCRIPT", id: 2 },
-    { name: "NODE JS", id: 3 },
-    { name: "PHP", id: 4 },
-    { name: "ANGULAR", id: 5 },
-    { name: "REACT JS", id: 6 },
-    { name: "VUE JS", id: 7 },
-    { name: "NO-SQL", id: 8 },
-    { name: "SQL", id: 9 }
+    { name: 'HTML', id: 1 },
+    { name: 'CSS', id: 2 },
+    { name: 'JAVASCRIPT', id: 2 },
+    { name: 'NODE JS', id: 3 },
+    { name: 'PHP', id: 4 },
+    { name: 'ANGULAR', id: 5 },
+    { name: 'REACT JS', id: 6 },
+    { name: 'VUE JS', id: 7 },
+    { name: 'NO-SQL', id: 8 },
+    { name: 'SQL', id: 9 }
   ];
   selectedSkillsValues = [];
+  // tslint:disable-next-line:ban-types
   skillsErrors: Boolean = true;
 
   worksOrders = [
-    { name: "Nông dân", value: "Nông dân" },
-    { name: "Kỹ sư", value: "Kỹ sư" },
-    { name: "kinh doanh", value: "kinh doanh" },
-    { name: "Công nhân", value: "Công nhân" },
-    { name: "Quản lý", value: "Quản lý" },
-    { name: "An ninh", value: "An ninh" },
-    { name: "Y tế", value: "Y tế" },
-    { name: "Giáo viên", value: "Giáo viên" },
-    { name: "Học sinh, Sinh viên", value: "Học sinh, Sinh viên" }
+    { value: 'Nông dân', id: 1 },
+    { value: 'Kỹ sư', id: 2 },
+    { value: 'kinh doanh', id: 3  },
+    { value: 'Công nhân', id: 4 },
+    { value: 'Quản lý', id: 5  },
+    { value: 'An ninh', id: 6 },
+    { value: 'Y tế', id: 7  },
+    { value: 'Giáo viên', id: 8  },
+    { value: 'Học sinh, Sinh viên', id: 9  },
+    // { value: 'other', id: 10  }
   ];
 
   degreeOrders = [
-    "Trên Đại học",
-    "Tốt nghiệp đại học",
-    "Đang học đại học",
-    "Tốt nghiệp cấp 3",
-    "Chưa tốt nghiệp cấp 3"
+    'Trên Đại học',
+    'Tốt nghiệp đại học',
+    'Đang học đại học',
+    'Tốt nghiệp cấp 3',
+    'Chưa tốt nghiệp cấp 3'
   ];
 
   salaryOrders = [
-    "Trên 2000$",
-    "Trên 1000$",
-    "Trên 500$",
-    "Trên 100$",
-    "Chưa có lương cố định"
+    'Trên 2000$',
+    'Trên 1000$',
+    'Trên 500$',
+    'Trên 100$',
+    'Chưa có lương cố định'
   ];
 
   constructor(
     private router: Router,
     private profileService: ProfileService,
-    private formBuilder: FormBuilder
-  ) {}
+    private formBuilder: FormBuilder,
+  ) { }
 
   ngOnInit() {
     this.resetForm();
     this.addProfileForm = this.formBuilder.group({
       _id: [],
-      fullname: ["", Validators.required],
-      gender: ["", Validators.required],
-      birthday: ["", Validators.required],
-      address: ["", Validators.required],
-      phone: ["", Validators.required],
-      degree: ["", Validators.required],
-      salary: ["", Validators.required],
+      fullname: ['', Validators.required],
+      gender: ['', Validators.required],
+      birthday: ['', Validators.required],
+      address: [ '', Validators.required],
+      phone: [ '', Validators.required],
+      degree: ['', Validators.required],
+      salary: [ '', Validators.required],
       skills: this.addSkillsControls(),
-      worked: ["", Validators.required],
-      status: ["", Validators.required],
-      imgULR: ["", Validators.required]
+      worked: ['', Validators.required],
+      status: [ '', Validators.required],
+      imgULR: ['', Validators.required]
     });
+  }
+  workOther() {
+    console.log('fasjfauihf');
+    this.checkWork = !this.checkWork;
   }
 
   addSkillsControls() {
@@ -92,7 +101,7 @@ export class AddProfileComponent implements OnInit {
     return this.formBuilder.array(arr);
   }
   get skillsArr() {
-    return <FormArray>this.addProfileForm.get("skills");
+    return this.addProfileForm.get('skills') as FormArray;
   }
   getSelectedSkillsValue() {
     this.selectedSkillsValues = [];
@@ -119,18 +128,18 @@ export class AddProfileComponent implements OnInit {
     if (form) {
       form.reset();
       this.profileService.selectedProfile = {
-        _id: "",
-        fullname: "",
-        gender: true,
+        _id: '',
+        fullname: '',
+        gender: '',
         birthday: null,
-        address: "",
+        address: '',
         phone: null,
-        degree: "",
-        salary: "",
-        skills: "",
-        worked: "",
-        status: "",
-        imgULR: ""
+        degree: '',
+        salary: '',
+        skills: '',
+        worked: '',
+        status: '',
+        imgULR: ''
       };
     }
   }
@@ -141,7 +150,7 @@ export class AddProfileComponent implements OnInit {
     const formData = this.addProfileForm.value;
     this.profileService.pushData(formData);
     console.log(formData);
-    this.router.navigate(["confirm-profile"]);
+    this.router.navigate(['confirm-profile']);
 
     // if (formData._id == "") {
     //   this.profileService.postProfile(formData).subscribe(data => {

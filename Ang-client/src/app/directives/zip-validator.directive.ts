@@ -1,8 +1,8 @@
-import { Directive } from "@angular/core";
-import { NG_VALIDATORS, Validator, AbstractControl } from "@angular/forms";
+import { Directive } from '@angular/core';
+import { NG_VALIDATORS, Validator, AbstractControl } from '@angular/forms';
 
 @Directive({
-  selector: "[appZipValidator]",
+  selector: '[appZipValidator]',
   providers: [
     {
       provide: NG_VALIDATORS,
@@ -18,14 +18,14 @@ export class ZipValidatorDirective {
     if (
       elementValue === null ||
       elementValue === undefined ||
-      elementValue === ""
+      elementValue === ''
     ) {
-      return { msg: "trường không được bỏ trống" };
+      return { msg: 'trường không được bỏ trống' };
     }
 
-    const reg = new RegExp("(09|01[2|6|8|9])+([0-9]{8})\b");
+    const reg = new RegExp('(09|01[2|6|8|9])+([0-9]{8})\b');
     if (!reg.test(elementValue)) {
-      return { msg: "Không đúng định dạng số ĐT VN" };
+      return { msg: 'Không đúng định dạng số ĐT VN' };
     }
 
     return null;

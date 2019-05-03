@@ -1,27 +1,28 @@
-const validateProfileInput = require("../supports/profile.validate");
+const validateProfileInput = require('../supports/profile.validate')
+const http = require('http-status-codes')
 
-const httpcodes = require("http-status-codes");
-const Profile = require("../models/profile.modal");
-const ObjectId = require("mongoose").Types.ObjectId;
+const httpcodes = require('http-status-codes')
+const Profile = require('../models/profile.modal')
+const ObjectId = require('mongoose').Types.ObjectId
 // const InputProfileFields = require("../supports/profileFields.input");
 
 module.exports = {
-  //SHOW ALL
+  // SHOW ALL
   async AllProfiles(req, res) {
-    const errors = {};
-    console.log(errors);
+    const errors = {}
+    console.log(errors)
     Profile.find((err, docs) => {
       if (!err) {
-        return res.status(httpcodes.ACCEPTED).json(docs);
+        return res.status(httpcodes.ACCEPTED).json(docs)
       } else {
-        console.log("All profile errors: " + JSON.stringify(err, undefined, 2));
-        return res.status(httpcodes.BAD_REQUEST).json(err);
+        console.log('All profile errors: ' + JSON.stringify(err, undefined, 2))
+        return res.status(httpcodes.BAD_REQUEST).json(err)
       }
-    });
+    })
   },
   // INPUT PROFILE
   async InputProfile(req, res) {
-    const { errors, isValid } = validateProfileInput(req.body);
+    const { errors, isValid } = validateProfileInput(req.body)
     const inputFields = new Profile({
       fullname: req.body.fullname,
       gender: req.body.gender,
@@ -29,25 +30,30 @@ module.exports = {
       address: req.body.address,
       phone: req.body.phone,
       degree: req.body.degree,
+
+
+
+
+
       salary: req.body.salary,
       skills: req.body.skills,
       worked: req.body.worked,
       status: req.body.status,
       imgULR: req.body.imgULR
-    });
+    })
     if (!isValid) {
-      return res.status(httpcodes.BAD_REQUEST).json(errors);
+      return res.status(httpcodes.BAD_REQUEST).json(errors)
     }
     inputFields.save((err, doc) => {
       if (!err) {
-        return res.status(httpcodes.ACCEPTED).json(doc);
+        return res.status(httpcodes.ACCEPTED).json(doc)
       } else {
         console.log(
-          "Input profile errors: " + JSON.stringify(err, undefined, 2)
-        );
-        return res.status(httpcodes.BAD_REQUEST).json(err);
+          'Input profile errors: ' + JSON.stringify(err, undefined, 2)
+        )
+        return res.status(httpcodes.BAD_REQUEST).json(err)
       }
-    });
+    })
   },
 
   // SHOW ID
@@ -55,26 +61,29 @@ module.exports = {
     if (!ObjectId.isValid(req.params.id)) {
       return res
         .status(httpcodes.BAD_REQUEST)
-        .json(`không có id: ${req.params.id}`);
+        .json(`không có id: ${req.params.id}`)
     } else {
       Profile.findById(req.params.id, (err, doc) => {
         if (!err) {
-          return res.status(httpcodes.ACCEPTED).json(doc);
+          return res.status(httpcodes.ACCEPTED).json(doc)
         } else {
           console.log(
-            "ID profile errors: " + JSON.stringify(err, undefined, 2)
-          );
-          return res.status(httpcodes.BAD_REQUEST).json(err);
+            'ID profile errors: ' + JSON.stringify(err, undefined, 2)
+          )
+          return res.status(httpcodes.BAD_REQUEST).json(err)
         }
-      });
+      })
     }
   },
 
   async updateProfile(req, res) {
+
+
+
     if (!ObjectId.isValid(req.params.id)) {
       return res
         .status(httpcodes.BAD_REQUEST)
-        .json(`không có id: ${req.params.id}`);
+        .json(`không có id: ${req.params.id}`)
     } else {
       const inputFields = {
         fullname: req.body.fullname,
@@ -88,22 +97,22 @@ module.exports = {
         worked: req.body.worked,
         status: req.body.status,
         imgULR: req.body.imgULR
-      };
+      }
       Profile.findByIdAndUpdate(
         req.params.id,
         { $set: inputFields },
         { new: true },
         (err, doc) => {
           if (!err) {
-            return res.status(httpcodes.ACCEPTED).json(doc);
+            return res.status(httpcodes.ACCEPTED).json(doc)
           } else {
             console.log(
-              "Update profile errors: " + JSON.stringify(err, undefined, 2)
-            );
-            return res.status(httpcodes.BAD_REQUEST).json(err);
+              'Update profile errors: ' + JSON.stringify(err, undefined, 2)
+            )
+            return res.status(httpcodes.BAD_REQUEST).json(err)
           }
         }
-      );
+      )
     }
   },
 
@@ -111,18 +120,18 @@ module.exports = {
     if (!ObjectId.isValid(req.params.id)) {
       return res
         .status(httpcodes.BAD_REQUEST)
-        .json(`không có id: ${req.params.id}`);
+        .json(`không có id: ${req.params.id}`)
     } else {
       Profile.findByIdAndRemove(req.params.id, (err, doc) => {
         if (!err) {
-          return res.status(httpcodes.ACCEPTED).json(doc);
+          return res.status(httpcodes.ACCEPTED).json(doc)
         } else {
           console.log(
-            "Delete profile errors: " + JSON.stringify(err, undefined, 2)
-          );
-          return res.status(httpcodes.BAD_REQUEST).json(err);
+            'Delete profile errors: ' + JSON.stringify(err, undefined, 2)
+          )
+          return res.status(httpcodes.BAD_REQUEST).json(err)
         }
-      });
+      })
     }
   }
 
@@ -216,4 +225,4 @@ module.exports = {
   //       return res.status(httpcodes.NOT_FOUND).json(err);
   //     });
   // },
-};
+}

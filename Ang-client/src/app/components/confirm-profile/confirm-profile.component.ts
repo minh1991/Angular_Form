@@ -1,15 +1,17 @@
-import { Component, OnInit } from "@angular/core";
-import { ProfileService } from "./../../services/profile.service";
-import { Router } from "@angular/router";
-import { FormGroup, FormBuilder } from "@angular/forms";
+import { Component, OnInit } from '@angular/core';
+import { ProfileService } from './../../services/profile.service';
+import { Router } from '@angular/router';
+import { FormGroup, FormBuilder } from '@angular/forms';
 
 @Component({
-  selector: "app-confirm-profile",
-  templateUrl: "./confirm-profile.component.html",
-  styleUrls: ["./confirm-profile.component.css"]
+  selector: 'app-confirm-profile',
+  templateUrl: './confirm-profile.component.html',
+  styleUrls: ['./confirm-profile.component.css']
 })
 export class ConfirmProfileComponent implements OnInit {
-  ProfileData: any = {};
+  addFromData: any = {};
+  profileData: Array<any> = [];
+  confirmProfileForm: FormGroup;
   constructor(
     private router: Router,
     private formBuilder: FormBuilder,
@@ -17,14 +19,28 @@ export class ConfirmProfileComponent implements OnInit {
   ) {}
 
   ngOnInit() {
-    this.ProfileData = this.getProfileData();
-    console.log(this.ProfileData);
+    this.addFromData = this.getAddFromData();
+    this.profileData = this.addFromData.source.value;
+    this.confirmProfileForm = this.formBuilder.group({
+      _id: [],
+      fullname: [],
+      gender: [],
+      birthday: [],
+      address: [],
+      phone: [],
+      degree: [],
+      salary: [],
+      skills: [],
+      worked: [],
+      status: [],
+      imgULR: []
+    });
+    console.log(this.addFromData);
+    console.log(this.profileData);
 
-    // this.profileService.getData();
-    // console.log(this.ProfileData.source._value);
   }
-  getProfileData() {
-    let data = this.profileService.getData();
+  getAddFromData() {
+    const data = this.profileService.getData();
     return data;
   }
 }
