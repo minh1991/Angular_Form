@@ -1,21 +1,20 @@
 import { Component, OnInit } from '@angular/core';
-import {
-  FormBuilder,
-  FormGroup,
-  Validators,
-  FormArray,
-  NgForm
-} from '@angular/forms';
+import {FormBuilder, FormGroup, Validators, FormArray, NgForm} from '@angular/forms';
+import {FileDropDirective, FileUploader} from 'ng2-file-upload';
 import { ProfileService } from './../../services/profile.service';
 import { Router } from '@angular/router';
 // import {ProfileModel} from '../../models/profile.model';
 
+const uri = 'http://localhost:3000/api/profile/';
 @Component({
   selector: 'app-add-profile',
   templateUrl: './add-profile.component.html',
   styleUrls: ['./add-profile.component.css']
 })
 export class AddProfileComponent implements OnInit {
+
+
+
   // profileModel: ProfileModel = new ProfileModel();
   addProfileForm: FormGroup;
   checkWork = false;
@@ -70,7 +69,7 @@ export class AddProfileComponent implements OnInit {
     private router: Router,
     private profileService: ProfileService,
     private formBuilder: FormBuilder,
-  ) { }
+  ) {}
 
   ngOnInit() {
     this.resetForm();
@@ -86,7 +85,7 @@ export class AddProfileComponent implements OnInit {
       skills: this.addSkillsControls(),
       worked: ['', Validators.required],
       status: [ '', Validators.required],
-      imgULR: ['', Validators.required]
+      image: ['', Validators.required]
     });
   }
   workOther() {
@@ -139,7 +138,7 @@ export class AddProfileComponent implements OnInit {
         skills: '',
         worked: '',
         status: '',
-        imgULR: ''
+        image: ''
       };
     }
   }

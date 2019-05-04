@@ -51,7 +51,7 @@ const ProfileSchema = new mongoose.Schema({
     type: String,
     required: true
   },
-  imgULR: {
+  image: {
     type: String
   },
   date: {

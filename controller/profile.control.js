@@ -1,6 +1,5 @@
 const validateProfileInput = require('../supports/profile.validate')
-const http = require('http-status-codes')
-
+const upload = require('../supports/upload-img.multer')
 const httpcodes = require('http-status-codes')
 const Profile = require('../models/profile.modal')
 const ObjectId = require('mongoose').Types.ObjectId
@@ -30,16 +29,13 @@ module.exports = {
       address: req.body.address,
       phone: req.body.phone,
       degree: req.body.degree,
-
-
-
-
-
       salary: req.body.salary,
       skills: req.body.skills,
       worked: req.body.worked,
       status: req.body.status,
-      imgULR: req.body.imgULR
+      // imgULR: req.body.imgULR
+      originalname: req.file.originalname,
+      uploadname: req.file.filename,
     })
     if (!isValid) {
       return res.status(httpcodes.BAD_REQUEST).json(errors)
@@ -55,6 +51,18 @@ module.exports = {
       }
     })
   },
+
+
+  // UPLOAD IMG
+  async uploadImg() {
+    upload(req, res, (err) => {
+      if (err) {
+        return res.status(httpcodes.BAD_REQUEST).json({ errors: [{ title: 'File Upload Error', detail: err.message }] })
+      }
+      return res.status(httpcodes.ACCEPTED).json({ 'imgULR': req.file.location })
+    })
+  },
+
 
   // SHOW ID
   async IdProfile(req, res) {

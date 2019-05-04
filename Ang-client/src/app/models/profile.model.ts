@@ -14,5 +14,5 @@ export class ProfileModel {
   skills: string;
   worked: string;
   status: string;
-  imgULR: string;
+  image: string;
 }
