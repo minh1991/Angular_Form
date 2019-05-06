@@ -1,4 +1,15 @@
-<label for="">Upload Images: </label>
+
 <label class="img-upload-container btn btn-danger">
-  <input type="file" accept="image/*" #imgInput (change)="processFile(imgInput)" > 
+  <span for="">Upload Images: </span>
+  <input 
+      type="file" 
+      accept="image/*" 
+      #imgInput 
+      (change)="processFile(imgInput)" > 
 </label>
+
+<div class="img-preview-container" *ngIf="selectFile">
+  <div class="img-preview" [ngStyle]="{'background-image': 'url('+ selectFile.src +')'}">
+
+  </div>
+</div>

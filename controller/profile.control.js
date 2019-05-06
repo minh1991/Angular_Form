@@ -54,12 +54,14 @@ module.exports = {
 
 
   // UPLOAD IMG
-  async uploadImg() {
+  async uploadImg(req, res) {
     upload(req, res, (err) => {
       if (err) {
+        console.log(err)
         return res.status(httpcodes.BAD_REQUEST).json({ errors: [{ title: 'File Upload Error', detail: err.message }] })
       }
-      return res.status(httpcodes.ACCEPTED).json({ 'imgULR': req.file.location })
+      // console.log(req.file)
+      return res.status(httpcodes.ACCEPTED).json({ 'imgULR': req.file.filename })
     })
   },
 

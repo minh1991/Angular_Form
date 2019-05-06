@@ -11,12 +11,12 @@ const fileFilter = (req, file, cb) => {
 
 const store = multer.diskStorage({
     destination: (req, file, cb) => {
-        cb(null, '../upload-img')
+        cb(null, '../Angular_form/upload-img')
     },
     filename: (req, file, cb) => {
         cb(null, Date.now() + '-' + file.originalname)
     },
 })
-const upload = multer({ fileFilter, storage: store }).single('file')
+const upload = multer({ fileFilter, storage: store }).single('image')
 
 module.exports = upload
