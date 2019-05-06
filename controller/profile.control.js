@@ -60,8 +60,8 @@ module.exports = {
         console.log(err)
         return res.status(httpcodes.BAD_REQUEST).json({ errors: [{ title: 'File Upload Error', detail: err.message }] })
       }
-      // console.log(req.file)
-      return res.status(httpcodes.ACCEPTED).json({ 'imgULR': req.file.filename })
+      console.log(req.file)
+      return res.status(httpcodes.ACCEPTED).json({ 'image': req.file.filename })
     })
   },
 

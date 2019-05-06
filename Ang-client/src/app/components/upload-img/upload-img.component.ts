@@ -26,23 +26,23 @@ export class UploadImgComponent implements OnInit {
 
   processFile(imgInput: any) {
     // debugger;
-    console.log('processFile OK');
     const file: File = imgInput.files[0];
     const render = new FileReader();
-
+    // debugger;
     render.addEventListener('load', (event: any) => {
-      // debugger;
       this.selectFile = new ImageSnippet(event.target.result, file);
       this.imagesService.uploadImage(this.selectFile.file).subscribe(
         (res) => {
           console.log( 'img           ' + JSON.stringify(res));
-
         },
         (err) => {
           console.log(err);
         }
       );
     });
+    // debugger;
     render.readAsDataURL(file);
+    // console.log('file---' + JSON.stringify(file));
+    // console.log('render---' + JSON.stringify(render));
   }
 }
