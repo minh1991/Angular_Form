@@ -25,9 +25,7 @@
             id=""
             formControlName="email"
           />
-          <app-errors-validate>
-            [control]="loginForm.controls.email" [name-control]="'Email'"
-          </app-errors-validate>
+          <app-errors-validate [control]="loginForm.controls.email" [name-control]="'Email'"></app-errors-validate>
         </div>
 
         <div class="form-group">
@@ -39,9 +37,7 @@
             id=""
             formControlName="password"
           />
-          <app-errors-validate>
-            [control]="loginForm.controls.password" [name-control]="'Password'"
-          </app-errors-validate>
+          <app-errors-validate  [control]="loginForm.controls.password" [name-control]="'Password'"></app-errors-validate>
         </div>
 
         <div class="form-group">

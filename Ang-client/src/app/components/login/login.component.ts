@@ -3,6 +3,8 @@ import { FormGroup, FormBuilder, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
 import { AuthService } from './../../services/auth.service';
 import { TokenService } from './../../services/token.service';
+import { Messenger } from './../../supposts/message';
+import { Constant } from './../../supposts/constant';
 
 @Component({
   selector: 'app-login',
@@ -24,8 +26,8 @@ export class LoginComponent implements OnInit {
   }
   init() {
     this.loginForm = this.formBuilder.group({
-      email: ['', [Validators.required]],
-      password: ['', [Validators.required]]
+      email: ['', [Validators.required, Validators.pattern(Constant.PATTERN.EMAIL)]],
+      password: ['', [Validators.required, Validators.pattern(Constant.PATTERN.PASSWORD)]]
     });
   }
 

@@ -1,11 +1,12 @@
 import { Component, OnInit } from '@angular/core';
 import {FormBuilder, FormGroup, Validators, FormArray, NgForm} from '@angular/forms';
-import {FileDropDirective, FileUploader} from 'ng2-file-upload';
 import { ProfileService } from './../../services/profile.service';
 import { Router } from '@angular/router';
 // import {ProfileModel} from '../../models/profile.model';
+import { Messenger } from './../../supposts/message';
+import { Constant } from './../../supposts/constant';
 
-const uri = 'http://localhost:3000/api/profile/';
+
 @Component({
   selector: 'app-add-profile',
   templateUrl: './add-profile.component.html',
@@ -77,9 +78,9 @@ export class AddProfileComponent implements OnInit {
       _id: [],
       fullname: ['', Validators.required],
       gender: ['', Validators.required],
-      birthday: ['', Validators.required],
+      birthday: ['', [Validators.required, Validators.pattern(Constant.PATTERN.DATE)]],
       address: [ '', Validators.required],
-      phone: [ '', Validators.required],
+      phone: [ '', [Validators.required, Validators.pattern(Constant.PATTERN.NUMBER)]],
       degree: ['', Validators.required],
       salary: [ '', Validators.required],
       skills: this.addSkillsControls(),
