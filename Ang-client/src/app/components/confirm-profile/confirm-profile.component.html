@@ -1,185 +1,109 @@
-
-
 <div class="container">
-    <div class="row">
-      <div class="col-12">
-        <h3 id="title">Confirm Profile</h3>
-      </div>
+  <div class="row">
+    <div class="col-12">
+      <h3 id="title">Confirm Profile</h3>
     </div>
-  
-    <div class="row">
-      <div class="col-12">
-        <form [formGroup]="confirmProfileForm" >
-          <div class="form-group">
-            <input type="hidden" class="form-control" formControlName="_id" />
-          </div>
-  
-          <div class="form-group">
-            <label for="">Full Name: </label>
-            <input
-              type="text"
-              value="{{profileData.fullname}}"
-              disabled
-              class="form-control"
-              formControlName="fullname"
-            />
-          </div>
-  
-          <!-- <div class="col-6">
-            <label for="gender">Gender: </label>
-            <div class="form-check form-check-inline">
-              <label class="form-check-label">
-                <input
-                  class="form-check-input"
-                  type="radio"
-                  value="male"           
-                  formControlName="gender"
-                 checked
-                />
-                Nam
-              </label>
-              <label class="form-check-label">
-                <input
-                  class="form-check-input"
-                  type="radio"
-                  value="female"
-                  formControlName="gender"
-                  checked
-                />
-                Nữ
-              </label>
-            </div>
-          </div> -->
-  
-          <div class="form-group">
-            <label for="">Birthday: </label>
-            <input
-              type="date"
-              class="form-control"
-              required
-              formControlName="birthday"
-              value="{{profileData.birthday}}"
-              disabled
-            />
-          </div>
-  
-          <div class="form-group">
-            <label for="">Address: </label>
-            <input
-              type="text"
-              class="form-control"
-              required
-              formControlName="address"
-              value="{{profileData.address}}"
-              disabled
-            />
-          </div>
-  
-          <div class="form-group">
-            <label for="">Phone: </label>
-            <input
-              type="number"
-              class="form-control"
-              appZipValidator
-              formControlName="phone"
-              value="{{profileData.phone}}"
-              disabled
-            />
-          </div>
-  
-          <div class="form-group">
-            <label for="">Degree: </label>
-            <input type="text" class="form-control" formControlName="degree"  value="{{profileData.degree}}" disabled>
-          </div>
-  
-          <div class="form-group">
-            <label for="">Salary</label>
-            <input type="text" class="form-control" formControlName="salary"  value="{{profileData.salary}}" disabled>
-          </div>
-  
-          <h6>Skills:</h6>
-          <div class="form-check" *ngFor="let item of profileData.skills">
-            <label class="form-check-label" for="">
-              <input
-                type="checkbox"
-                class="form-check-input"
-                required
-               name="{{ item.name }}" 
-                value="{{ item.id }}"
-                disabled checked
-              />{{ item.name }}
-            </label>
-          </div>
-  
-          <!-- <h5>Worked:</h5>
-          <div class="form-check " *ngFor="let item of worksOrders">
+  </div>
+
+  <div class="row">
+    <div class="col-12">
+      <form [formGroup]="confirmProfileForm">
+        <div class="form-group">
+          <input type="hidden" class="form-control" formControlName="_id" />
+        </div>
+
+        <div class="form-group">
+          <label for="">Full Name: </label>
+          <input type="text" value="{{profileData.fullname}}" disabled class="form-control"
+            formControlName="fullname" />
+        </div>
+
+        <div class="col-6">
+          <label for="gender">Gender: </label>
+          <div class="form-check form-check-inline">
             <label class="form-check-label">
-              <input
-                class="form-check-input col-6"
-                type="radio"
-                value="{{ item.value }}"
-                required
-                formControlName="worked"
-              />{{ item.name }}
+              <input class="form-check-input" type="radio" value="1" [(ngModel)]="profileData.gender"
+                formControlName="gender" checked disabled />
+              Nam
             </label>
-          </div>
-          <div class="form-check ">
             <label class="form-check-label">
-              <input
-                class="form-check-input col-6"
-                type="radio"
-                id="other"
-                formControlName="worked"
-                value="other"
-              />
-              Other:
-              <input type="text" id="inputother" formControlName="worked" />
+              <input class="form-check-input" type="radio" value="2" [(ngModel)]="profileData.gender"
+                formControlName="gender" checked disabled />
+              Nữ
             </label>
-          </div> -->
-  
+          </div>
+        </div>
+
+        <div class="form-group">
+          <label for="">Birthday: </label>
+          <input type="date" class="form-control" required formControlName="birthday" value="{{profileData.birthday}}"
+            disabled />
+        </div>
+
+        <div class="form-group">
+          <label for="">Address: </label>
+          <input type="text" class="form-control" required formControlName="address" value="{{profileData.address}}"
+            disabled />
+        </div>
+
+        <div class="form-group">
+          <label for="">Phone: </label>
+          <input type="number" class="form-control" appZipValidator formControlName="phone"
+            value="{{profileData.phone}}" disabled />
+        </div>
+
+        <div class="form-group">
+          <label for="">Degree: </label>
+          <input type="text" class="form-control" formControlName="degree" value="{{profileData.degree}}" disabled>
+        </div>
+
+        <div class="form-group">
+          <label for="">Salary</label>
+          <input type="text" class="form-control" formControlName="salary" value="{{profileData.salary}}" disabled>
+        </div>
+
+        <h6>Skills:</h6>
+        <div class="form-check" *ngFor="let item of profileData.skills">
+          <label class="form-check-label" for="">
+            <input type="checkbox" class="form-check-input" required name="{{ item.name }}" value="{{ item.id }}"
+              disabled checked />{{ item.name }}
+          </label>
+        </div>
+
+        <h5>Worked:</h5>
+        <div class="form-check " *ngFor="let item of worksOrders">
+          <label class="form-check-label">
+            <input class="form-check-input col-6" type="radio" value="{{ item.id }}" [(ngModel)]="profileData.workedId"
+              required formControlName="worked" />{{ item.value }}
+          </label>
+        </div>
+        <div *ngIf="checkWork">
+          <input type="text" id="inputother" value="{{profileData.worked}}" />
+        </div>
+
+        <div class="form-group">
+          <label for="">Status: </label>
+          <textarea class="form-control" rows="3" required formControlName="status" value="{{profileData.status}}"
+            disabled></textarea>
+        </div>
+
+        <div class="form-group">
+          <label for="">Images: </label>
+          <input type="file" class="form-control-file" formControlName="imgULR" />
+        </div>
+
+        <div class="row">
           <div class="form-group">
-            <label for="">Status: </label>
-            <textarea
-              class="form-control"
-              rows="3"
-              required
-              formControlName="status"
-              value="{{profileData.status}}"
-              disabled
-            ></textarea>
+            <button class="btn btn-primary col-12 " id="add-button" (click)="resetForm(addProfileForm)">
+              reset
+            </button>
           </div>
-  
           <div class="form-group">
-            <label for="">Images: </label>
-            <input
-              type="file"
-              class="form-control-file"
-              formControlName="imgULR"
-            />
+            <button class="btn btn-primary col-12 " id="add-button" (click)="onSubmitAddForm(addProfileForm)">
+              Next
+            </button>
           </div>
-  
-          <div class="row">
-            <div class="form-group">
-              <button
-                class="btn btn-primary col-12 "
-                id="add-button"
-                (click)="resetForm(addProfileForm)"
-              >
-                reset
-              </button>
-            </div>
-            <div class="form-group">
-              <button
-                class="btn btn-primary col-12 "
-                id="add-button"
-                (click)="onSubmitAddForm(addProfileForm)"
-              >
-                Next
-              </button>
-            </div>
-          </div>
-        </form>
-      </div>
+        </div>
+      </form>
     </div>
-  
- 
+  </div>

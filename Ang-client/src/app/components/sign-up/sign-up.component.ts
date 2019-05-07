@@ -21,7 +21,7 @@ export class SignUpComponent implements OnInit {
     private formBuilder: FormBuilder,
     private router: Router,
     private tokenService: TokenService
-  ) {}
+  ) { }
 
   ngOnInit() {
     this.init();
@@ -50,25 +50,31 @@ export class SignUpComponent implements OnInit {
     this.errorValidateFieldSignUp = [];
     if (this.signupForm.invalid) {
       if (this.formSignUp.username.errors) {
-       if (this.formSignUp.username.errors.required) {
-        this.showErrors({username: String.Format(Messenger.MSG0002, 'Username')});
-       }
+        if (this.formSignUp.username.errors.required) {
+          this.showErrors({ username: String.Format(Messenger.MSG0002, 'Username') });
+        }
+      } else {
+        this.showErrors({ username: '' });
       }
       if (this.formSignUp.email.errors) {
         if (this.formSignUp.email.errors.required) {
-          this.showErrors({email: String.Format(Messenger.MSG0002, 'Email')});
+          this.showErrors({ email: String.Format(Messenger.MSG0002, 'Email') });
         }
         if (this.formSignUp.email.errors.pattern) {
-          this.showErrors({email: String.Format(Messenger.MSG0001, 'Email')});
+          this.showErrors({ email: String.Format(Messenger.MSG0001, 'Email') });
         }
+      } else {
+        this.showErrors({ email: '' });
       }
       if (this.formSignUp.password.errors) {
         if (this.formSignUp.password.errors.required) {
-          this.showErrors({password: String.Format(Messenger.MSG0002, 'Password')});
+          this.showErrors({ password: String.Format(Messenger.MSG0002, 'Password') });
         }
         if (this.formSignUp.password.errors.pattern) {
-          this.showErrors({password: String.Format(Messenger.MSG0001, 'Password')});
+          this.showErrors({ password: String.Format(Messenger.MSG0001, 'Password') });
         }
+      } else {
+        this.showErrors({ password: '' });
       }
       return true;
     }

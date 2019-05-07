@@ -21,7 +21,7 @@ export class LoginComponent implements OnInit {
     private formBuilder: FormBuilder,
     private router: Router,
     private tokenService: TokenService
-  ) {}
+  ) { }
 
   ngOnInit() {
     this.init();
@@ -50,19 +50,23 @@ export class LoginComponent implements OnInit {
     if (this.loginForm.invalid) {
       if (this.form.email.errors) {
         if (this.form.email.errors.required) {
-          this.showErrors({email: String.Format(Messenger.MSG0002, 'Email')});
+          this.showErrors({ email: String.Format(Messenger.MSG0002, 'Email') });
         }
         if (this.form.email.errors.pattern) {
-          this.showErrors({email: String.Format(Messenger.MSG0001, 'Email')});
+          this.showErrors({ email: String.Format(Messenger.MSG0001, 'Email') });
         }
+      } else {
+        this.showErrors({ email: '' });
       }
       if (this.form.password.errors) {
         if (this.form.password.errors.required) {
-          this.showErrors({password: String.Format(Messenger.MSG0002, 'Password')});
+          this.showErrors({ password: String.Format(Messenger.MSG0002, 'Password') });
         }
         if (this.form.password.errors.pattern) {
-          this.showErrors({password: String.Format(Messenger.MSG0001, 'Password')});
+          this.showErrors({ password: String.Format(Messenger.MSG0001, 'Password') });
         }
+      } else {
+        this.showErrors({ password: '' });
       }
       return true;
     }

@@ -44,8 +44,13 @@ const ProfileSchema = new mongoose.Schema({
     required: true
   },
   worked: {
-    type: String,
-    required: true
+    required: true,
+    id: {
+      type: String
+    },
+    comment: {
+      type: String
+    }
   },
   status: {
     type: String,

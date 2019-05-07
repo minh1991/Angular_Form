@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import {FormBuilder, FormGroup, Validators, FormArray, NgForm} from '@angular/forms';
+import { FormBuilder, FormGroup, Validators, FormArray, NgForm } from '@angular/forms';
 import { ProfileService } from './../../services/profile.service';
 import { Router } from '@angular/router';
 // import {ProfileModel} from '../../models/profile.model';
@@ -38,24 +38,24 @@ export class AddProfileComponent implements OnInit {
   skillsErrors: Boolean = true;
 
   worksOrders = [
-    { value: 'Nông dân', id: 1 },
-    { value: 'Kỹ sư', id: 2 },
-    { value: 'kinh doanh', id: 3  },
-    { value: 'Công nhân', id: 4 },
-    { value: 'Quản lý', id: 5  },
-    { value: 'An ninh', id: 6 },
-    { value: 'Y tế', id: 7  },
-    { value: 'Giáo viên', id: 8  },
-    { value: 'Học sinh, Sinh viên', id: 9  },
-    // { value: 'other', id: 10  }
+    { value: 'Nông dân', id: 1, comment: '' },
+    { value: 'Kỹ sư', id: 2, comment: '' },
+    { value: 'kinh doanh', id: 3, comment: '' },
+    { value: 'Công nhân', id: 4, comment: '' },
+    { value: 'Quản lý', id: 5, comment: '' },
+    { value: 'An ninh', id: 6, comment: '' },
+    { value: 'Y tế', id: 7, comment: '' },
+    { value: 'Giáo viên', id: 8, comment: '' },
+    { value: 'Học sinh, Sinh viên', id: 9, comment: '' },
+    { value: 'other', id: 10, comment: '' }
   ];
 
   degreeOrders = [
-    'Trên Đại học',
-    'Tốt nghiệp đại học',
-    'Đang học đại học',
-    'Tốt nghiệp cấp 3',
-    'Chưa tốt nghiệp cấp 3'
+    { name: 'Trên Đại học', id: 1 },
+    { name: 'Tốt nghiệp đại học', id: 2 },
+    { name: 'Đang học đại học', id: 2 },
+    { name: 'Tốt nghiệp cấp 3', id: 3 },
+    { name: 'Chưa tốt nghiệp cấp 3', id: 4 },
   ];
 
   salaryOrders = [
@@ -70,7 +70,7 @@ export class AddProfileComponent implements OnInit {
     private router: Router,
     private profileService: ProfileService,
     private formBuilder: FormBuilder,
-  ) {}
+  ) { }
 
   ngOnInit() {
     this.resetForm();
@@ -79,19 +79,24 @@ export class AddProfileComponent implements OnInit {
       fullname: ['', Validators.required],
       gender: ['', Validators.required],
       birthday: ['', [Validators.required, Validators.pattern(Constant.PATTERN.DATE)]],
-      address: [ '', Validators.required],
-      phone: [ '', [Validators.required, Validators.pattern(Constant.PATTERN.NUMBER)]],
+      address: ['', Validators.required],
+      phone: ['', [Validators.required, Validators.pattern(Constant.PATTERN.NUMBER)]],
       degree: ['', Validators.required],
-      salary: [ '', Validators.required],
+      salary: ['', Validators.required],
       skills: this.addSkillsControls(),
       worked: ['', Validators.required],
-      status: [ '', Validators.required],
+      workedId: [],
+      status: ['', Validators.required],
       image: ['', Validators.required]
     });
   }
-  workOther() {
+  workOther(id) {
     console.log('fasjfauihf');
-    this.checkWork = !this.checkWork;
+    if (id == 10) {
+      this.checkWork = true;
+    } else {
+      this.checkWork = false;
+    }
   }
 
   addSkillsControls() {
@@ -149,6 +154,11 @@ export class AddProfileComponent implements OnInit {
     // console.log("form data  ", addProfileForm.value);
     const formData = this.addProfileForm.value;
     this.profileService.pushData(formData);
+    if (Number(formData.worked)) {
+      formData.workedId = formData.worked;
+    } else {
+      formData.workedId = 10;
+    }
     console.log(formData);
     this.router.navigate(['confirm-profile']);
 
