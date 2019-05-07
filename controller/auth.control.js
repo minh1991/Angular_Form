@@ -7,14 +7,14 @@ const User = require('../models/user.model')
 const db = require('../config/keys')
 
 module.exports = {
-  async CreateUser (req, res) {
+  async CreateUser(req, res) {
     const { errors, isValid } = validateSignUpInput(req.body)
     console.log(isValid)
     if (!isValid) {
       // console.log({ message: errors });
       return res.status(httpcodes.BAD_REQUEST).json({ message: errors })
     }
-
+    debugger
     await User.findOne({ email: req.body.email }).then(user => {
       if (user) {
         return res
@@ -53,7 +53,7 @@ module.exports = {
     })
   },
 
-  async LoginUser (req, res) {
+  async LoginUser(req, res) {
     console.log('login ' + req.body)
     const { errors, isValid } = validateLoginInput(req.body)
     console.log('isValid ' + isValid)
@@ -92,10 +92,12 @@ module.exports = {
           }
         })
       }
+    }).catch(err => {
+      return res.status(httpcodes.BAD_REQUEST).json({ message: err })
     })
   },
 
-  async PassportAuth (req, res) {
+  async PassportAuth(req, res) {
     return res.json({
       id: req.user.id,
       username: req.user.username,

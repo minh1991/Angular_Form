@@ -5,8 +5,7 @@ const AuthControl = require('../controller/auth.control')
 
 router.post('/signup', AuthControl.CreateUser)
 router.post('/login', AuthControl.LoginUser)
-router.get(
-  '/current',
+router.get('/current',
   passport.authenticate('jwt', { session: false }),
   AuthControl.PassportAuth
 )

@@ -25,9 +25,7 @@ export class ErrorsValidateComponent implements OnInit {
     const messages = {
       required: `${this.controlName} Không được bỏ trống`,
       minlength: `${this.controlName} ít nhất là ${value.requiredLength} ký tự`,
-      maxlength: `${this.controlName} nhiều nhất là ${
-        value.requiredLength
-      } ký tự`,
+      maxlength: `${this.controlName} nhiều nhất là ${value.requiredLength} ký tự`,
       email: `${this.controlName} điền đúng định dạng Email`
     };
     return messages[err];

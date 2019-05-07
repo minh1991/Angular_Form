@@ -8,14 +8,17 @@ import { SignUpComponent } from './../components/sign-up/sign-up.component';
 import { AuthService } from './../services/auth.service';
 import { TokenService } from './../services/token.service';
 import { ErrorsValidateComponent } from './../components/errors-validate/errors-validate.component';
+
 @NgModule({
   declarations: [
     AuthComponent,
     LoginComponent,
     SignUpComponent,
-    ErrorsValidateComponent
+    ErrorsValidateComponent,
+
   ],
   imports: [CommonModule, HttpClientModule, FormsModule, ReactiveFormsModule],
+
 
   exports: [AuthComponent, LoginComponent, SignUpComponent],
   providers: [AuthService, TokenService]
