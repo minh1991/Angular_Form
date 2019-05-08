@@ -32,6 +32,7 @@ export class TableComponent implements OnInit {
     this.router.navigate(['add-profile']);
   }
 
+  // tslint:disable-next-line:variable-name
   deleteProfile(_id: string, form: NgForm) {
     if (confirm('bạn muốn xóa ? ') === true) {
       this.profileService.deleteProfile(_id).subscribe(data => {

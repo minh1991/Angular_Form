@@ -33,7 +33,7 @@ module.exports = {
       skills: req.body.skills,
       worked: req.body.worked,
       status: req.body.status,
-      // imgULR: req.body.imgULR
+      imgULR: req.body.imgULR
       // originalname: req.file.originalname,
       // uploadname: req.file.filename,
     })
@@ -87,9 +87,6 @@ module.exports = {
   },
 
   async updateProfile(req, res) {
-
-
-
     if (!ObjectId.isValid(req.params.id)) {
       return res
         .status(httpcodes.BAD_REQUEST)
@@ -106,7 +103,7 @@ module.exports = {
         skills: req.body.skills,
         worked: req.body.worked,
         status: req.body.status,
-        // imgULR: req.body.imgULR
+        imgULR: req.body.imgULR
       }
       Profile.findByIdAndUpdate(
         req.params.id,
