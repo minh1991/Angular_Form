@@ -1,7 +1,7 @@
 const validator = require('validator')
 const isEmpty = require('./isEmpty.validate')
 
-module.exports = function validateProfileInput (data) {
+module.exports = function validateProfileInput(data) {
   let errors = {}
 
   if (!isEmpty(data.fullname)) {
@@ -93,11 +93,11 @@ module.exports = function validateProfileInput (data) {
   }
 
   // VALIDATE WORK
-  if (!validator.isLength(data.worked, { min: 2, max: 30 })) {
-    errors.worked = 'công việc gần nhất phải dài từ 2 ký tự đến 30 ký tự'
-  }
+  // if (!validator.isLength(data.worked.comment, { min: 2, max: 30 })) {
+  //   errors.worked = 'công việc gần nhất phải dài từ 2 ký tự đến 30 ký tự'
+  // }
 
-  if (validator.isEmpty(data.worked)) {
+  if (validator.isEmpty(data.worked.id)) {
     errors.worked = 'công việc gần nhất không được bỏ trống'
   }
 

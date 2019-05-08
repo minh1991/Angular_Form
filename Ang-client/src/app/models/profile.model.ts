@@ -8,11 +8,11 @@ export class ProfileModel {
   gender: string;
   birthday: Date;
   address: string;
-  phone: number;
+  phone: string;
   degree: string;
   salary: string;
   skills: string;
-  worked: string;
+  worked: any;
   status: string;
-  image: string;
+  imgULR: string;
 }

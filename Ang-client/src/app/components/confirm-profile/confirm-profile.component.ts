@@ -28,7 +28,7 @@ export class ConfirmProfileComponent implements OnInit {
 
   ngOnInit() {
     this.addFromData = this.getAddFromData();
-    this.profileData = this.coverData();
+    this.profileData = this.coverDataDisplay();
     this.confirmProfileForm = this.formBuilder.group({
       _id: [],
       fullname: [],
@@ -46,15 +46,15 @@ export class ConfirmProfileComponent implements OnInit {
     });
     this.workOther(this.profileData.workedId);
     console.log('profileData', this.profileData);
-    // console.log('addFromData---', this.addFromData);
-    this.coverData();
   }
+
+
   getAddFromData() {
     const data = this.profileService.getData();
     return data;
   }
 
-  coverData() {
+  coverDataDisplay() {
     const dataCoved = {
       _id : this.addFromData.source.value._id,
       fullname: this.addFromData.source.value.fullname,
@@ -83,13 +83,58 @@ export class ConfirmProfileComponent implements OnInit {
   }
 
   workOther(id) {
-    console.log('workOther confirm');
     if (this.profileData.workedId !== null) {
       if (Number(id) === 10) {
         this.checkWork = true;
       } else {
         this.checkWork = false;
       }
+    }
+  }
+
+  workComment() {
+    if (this.addFromData.source.value. workedId === '10') {
+      return this.addFromData.source.value.worked;
+    } else {
+      return null;
+    }
+  }
+
+  submitConfirmForm(confirmProfileForm) {
+    // console.log('addFromData--',  this.addFromData.source.value);
+    const dataConvedToDB = {
+      _id : this.addFromData.source.value._id,
+      fullname: this.addFromData.source.value.fullname,
+      gender: this.addFromData.source.value.gender,
+      birthday: this.addFromData.source.value.birthday,
+      address: this.addFromData.source.value.address,
+      phone: this.addFromData.source.value.phone,
+      degree: this.addFromData.source.value.degree,
+      salary: this.addFromData.source.value.salary,
+      skills: this.addFromData.source.value.skills.map(item => {
+        return item.id;
+      }).toString(),
+      worked : {
+        id: this.addFromData.source.value.workedId,
+        comment: this.workComment()
+      },
+      status: this.addFromData.source.value.status,
+      imgULR: this.addFromData.source.value.imgULR,
+      // worked: this.addFromData.source.value.worked,
+      // workedId: this.addFromData.source.value. workedId,
+    };
+    console.log('dataConvedToDB--', dataConvedToDB);
+
+    if (dataConvedToDB._id === null) {
+      this.profileService.postProfile(dataConvedToDB).subscribe(data => {
+        console.log(`Creat New dataForm: ${data}`);
+        this.router.navigate(['all']);
+      });
+    } else {
+      this.profileService.updatePutProfile(dataConvedToDB).subscribe(data => {
+        console.log(`Update dataForm: ${data}`);
+        this.router.navigate(['all']);
+      });
     }
   }
 }

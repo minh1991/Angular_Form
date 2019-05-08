@@ -46,11 +46,10 @@ export class AddProfileComponent implements OnInit {
       worked: ['', Validators.required],
       workedId: [],
       status: ['', Validators.required],
-      image: ['', Validators.required]
+      imgULR: ['', Validators.required]
     });
   }
   workOther(id) {
-    console.log('workOther');
     if (id === 10) {
       this.checkWork = true;
     } else {
@@ -74,7 +73,7 @@ export class AddProfileComponent implements OnInit {
         this.selectedSkillsValues.push(this.skillsOrders[i]);
       }
     });
-    console.log(this.selectedSkillsValues);
+    // console.log(this.selectedSkillsValues);
 
     this.skillsErrors = this.selectedSkillsValues.length > 0 ? false : true;
   }
@@ -101,9 +100,12 @@ export class AddProfileComponent implements OnInit {
         degree: '',
         salary: '',
         skills: '',
-        worked: '',
+        worked: {
+          id: '',
+          comment: null
+        },
         status: '',
-        image: ''
+        imgULR: ''
       };
     }
   }
