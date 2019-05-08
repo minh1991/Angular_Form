@@ -51,11 +51,11 @@ export class ConfirmProfileComponent implements OnInit {
       status: [],
       imgULR: []
     });
-    this.workOther(this.profileData.workedId);
+    // this.workOther(this.profileData.workedId);
     console.log(this.addFromData);
     console.log('profileData', this.profileData);
-    console.log('profileData', this.profileData.worked);
-    console.log('profileData', this.profileData.workedId);
+    // console.log('profileData', this.profileData.worked);
+    // console.log('profileData', this.profileData.workedId);
   }
   getAddFromData() {
     const data = this.profileService.getData();

@@ -13,58 +13,17 @@ import { Constant } from './../../supposts/constant';
   styleUrls: ['./add-profile.component.css']
 })
 export class AddProfileComponent implements OnInit {
-
-
-
-  // profileModel: ProfileModel = new ProfileModel();
   addProfileForm: FormGroup;
   checkWork = false;
   submitted = false;
   formArr: Array<any> = [];
-  skillsOrders: Array<any> = [
-    { name: 'HTML', id: 1 },
-    { name: 'CSS', id: 2 },
-    { name: 'JAVASCRIPT', id: 2 },
-    { name: 'NODE JS', id: 3 },
-    { name: 'PHP', id: 4 },
-    { name: 'ANGULAR', id: 5 },
-    { name: 'REACT JS', id: 6 },
-    { name: 'VUE JS', id: 7 },
-    { name: 'NO-SQL', id: 8 },
-    { name: 'SQL', id: 9 }
-  ];
   selectedSkillsValues = [];
   // tslint:disable-next-line:ban-types
   skillsErrors: Boolean = true;
-
-  worksOrders = [
-    { value: 'Nông dân', id: 1, comment: '' },
-    { value: 'Kỹ sư', id: 2, comment: '' },
-    { value: 'kinh doanh', id: 3, comment: '' },
-    { value: 'Công nhân', id: 4, comment: '' },
-    { value: 'Quản lý', id: 5, comment: '' },
-    { value: 'An ninh', id: 6, comment: '' },
-    { value: 'Y tế', id: 7, comment: '' },
-    { value: 'Giáo viên', id: 8, comment: '' },
-    { value: 'Học sinh, Sinh viên', id: 9, comment: '' },
-    { value: 'other', id: 10, comment: '' }
-  ];
-
-  degreeOrders = [
-    { name: 'Trên Đại học', id: 1 },
-    { name: 'Tốt nghiệp đại học', id: 2 },
-    { name: 'Đang học đại học', id: 2 },
-    { name: 'Tốt nghiệp cấp 3', id: 3 },
-    { name: 'Chưa tốt nghiệp cấp 3', id: 4 },
-  ];
-
-  salaryOrders = [
-    'Trên 2000$',
-    'Trên 1000$',
-    'Trên 500$',
-    'Trên 100$',
-    'Chưa có lương cố định'
-  ];
+  degreeOrders: Array<any> = Constant.DEGREEORDERS;
+  salaryOrders: Array<any> = Constant.SALARYORDERS;
+  skillsOrders: Array<any> = Constant.SKILLSORDERS;
+  worksOrders: Array<any> = Constant.WORKSORDERS;
 
   constructor(
     private router: Router,
@@ -91,7 +50,7 @@ export class AddProfileComponent implements OnInit {
     });
   }
   workOther(id) {
-    console.log('fasjfauihf');
+    console.log('workOther');
     if (id == 10) {
       this.checkWork = true;
     } else {

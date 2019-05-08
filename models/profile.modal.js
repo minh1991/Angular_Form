@@ -45,12 +45,13 @@ const ProfileSchema = new mongoose.Schema({
   },
   worked: {
     required: true,
-    id: {
-      type: String
-    },
-    comment: {
-      type: String
-    }
+    type: String
+    // id: {
+    //   type: String
+    // },
+    // comment: {
+    //   type: String
+    // }
   },
   status: {
     type: String,

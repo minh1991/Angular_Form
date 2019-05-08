@@ -58,7 +58,7 @@
           <label for="">Salary</label>
           <select class="form-control" required formControlName="salary">
             <option selected value="">Lựa chọn...</option>
-            <option *ngFor="let item of salaryOrders" [value]="item">{{item}}</option>
+            <option *ngFor="let item of salaryOrders" [value]="item.id">{{item.name}}</option>
           </select>
         </div>
 
