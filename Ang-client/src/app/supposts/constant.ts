@@ -45,6 +45,6 @@ export class Constant {
         { value: 'Y tế', id: 7, comment: '' },
         { value: 'Giáo viên', id: 8, comment: '' },
         { value: 'Học sinh, Sinh viên', id: 9, comment: '' },
-        { value: 'other', id: 10, comment: '' }
+        { value: 'Khác', id: 10, comment: '' }
       ];
 }

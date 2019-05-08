@@ -44,7 +44,7 @@ export class ConfirmProfileComponent implements OnInit {
       status: [],
       imgULR: []
     });
-    // this.workOther(this.profileData.workedId);
+    this.workOther(this.profileData.workedId);
     console.log('profileData', this.profileData);
     // console.log('addFromData---', this.addFromData);
     this.coverData();
@@ -73,8 +73,8 @@ export class ConfirmProfileComponent implements OnInit {
         }
       }),
       skills: this.addFromData.source.value.skills,
-      // worked:
-      // workedId:
+      worked: this.addFromData.source.value.worked,
+      workedId: this.addFromData.source.value. workedId,
       status: this.addFromData.source.value.status,
       imgULR: this.addFromData.source.value.imgULR,
     };
@@ -85,7 +85,7 @@ export class ConfirmProfileComponent implements OnInit {
   workOther(id) {
     console.log('workOther confirm');
     if (this.profileData.workedId !== null) {
-      if (id === 10) {
+      if (Number(id) === 10) {
         this.checkWork = true;
       } else {
         this.checkWork = false;

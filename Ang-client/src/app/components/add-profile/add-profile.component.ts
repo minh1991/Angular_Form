@@ -51,7 +51,7 @@ export class AddProfileComponent implements OnInit {
   }
   workOther(id) {
     console.log('workOther');
-    if (id == 10) {
+    if (id === 10) {
       this.checkWork = true;
     } else {
       this.checkWork = false;
@@ -116,9 +116,9 @@ export class AddProfileComponent implements OnInit {
     if (Number(formData.worked)) {
       formData.workedId = formData.worked;
     } else {
-      formData.workedId = 10;
+      formData.workedId = '10';
     }
-    console.log(formData);
+    console.log('123' + formData);
     this.router.navigate(['confirm-profile']);
 
     // if (formData._id == "") {
