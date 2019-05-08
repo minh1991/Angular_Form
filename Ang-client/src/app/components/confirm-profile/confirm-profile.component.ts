@@ -2,7 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { ProfileService } from './../../services/profile.service';
 import { Router } from '@angular/router';
 import { FormGroup, FormBuilder } from '@angular/forms';
-// import { Constant } from './../../supposts/constant';
+import { Constant } from './../../supposts/constant';
 
 @Component({
   selector: 'app-confirm-profile',
@@ -10,33 +10,25 @@ import { FormGroup, FormBuilder } from '@angular/forms';
   styleUrls: ['./confirm-profile.component.css']
 })
 export class ConfirmProfileComponent implements OnInit {
+
   addFromData: any = {};
-  profileData: Array<any> = [];
+  profileData: any = [];
   confirmProfileForm: FormGroup;
-  degreeOrders: any;
-  worksOrders = [
-    { value: 'Nông dân', id: 1, comment: '' },
-    { value: 'Kỹ sư', id: 2, comment: '' },
-    { value: 'kinh doanh', id: 3, comment: '' },
-    { value: 'Công nhân', id: 4, comment: '' },
-    { value: 'Quản lý', id: 5, comment: '' },
-    { value: 'An ninh', id: 6, comment: '' },
-    { value: 'Y tế', id: 7, comment: '' },
-    { value: 'Giáo viên', id: 8, comment: '' },
-    { value: 'Học sinh, Sinh viên', id: 9, comment: '' },
-    { value: 'other', id: 10, comment: '' }
-  ];
+  degreeOrders: Array<any> = Constant.DEGREEORDERS;
+  salaryOrders: Array<any> = Constant.SALARYORDERS;
+  skillsOrders: Array<any> = Constant.SKILLSORDERS;
+  worksOrders: Array<any> = Constant.WORKSORDERS;
   checkWork = false;
+
   constructor(
     private router: Router,
     private formBuilder: FormBuilder,
     private profileService: ProfileService,
-    // private constant: Constant,
   ) { }
 
   ngOnInit() {
     this.addFromData = this.getAddFromData();
-    this.profileData = this.addFromData.source.value;
+    this.profileData = this.coverData();
     this.confirmProfileForm = this.formBuilder.group({
       _id: [],
       fullname: [],
@@ -48,31 +40,56 @@ export class ConfirmProfileComponent implements OnInit {
       salary: [],
       skills: [],
       worked: [],
+      workedId: [],
       status: [],
       imgULR: []
     });
     // this.workOther(this.profileData.workedId);
-    console.log(this.addFromData);
     console.log('profileData', this.profileData);
-    // console.log('profileData', this.profileData.worked);
-    // console.log('profileData', this.profileData.workedId);
+    // console.log('addFromData---', this.addFromData);
+    this.coverData();
   }
   getAddFromData() {
     const data = this.profileService.getData();
     return data;
   }
 
-  getDedasd() {
-    // this.degreeOrders = this.constant.degreeOrders;
-    // console.log('degree--', this.degreeOrders);
+  coverData() {
+    const dataCoved = {
+      _id : this.addFromData.source.value._id,
+      fullname: this.addFromData.source.value.fullname,
+      gender: this.addFromData.source.value.gender,
+      birthday: this.addFromData.source.value.birthday,
+      address: this.addFromData.source.value.address,
+      phone: this.addFromData.source.value.phone,
+      degree: this.degreeOrders.filter(item => {
+        if (this.addFromData.source.value.degree && item.id === Number(this.addFromData.source.value.degree)) {
+          return item.id === Number(this.addFromData.source.value.degree);
+        }
+      }),
+      salary: this.salaryOrders.filter(item => {
+        if (this.addFromData.source.value.salary && item.id === Number(this.addFromData.source.value.salary)) {
+          return item.id === Number(this.addFromData.source.value.salary);
+        }
+      }),
+      skills: this.addFromData.source.value.skills,
+      // worked:
+      // workedId:
+      status: this.addFromData.source.value.status,
+      imgULR: this.addFromData.source.value.imgULR,
+    };
+    // console.log('dataCoved---', dataCoved);
+    return dataCoved;
   }
 
   workOther(id) {
-    console.log('fasjfauihf');
-    if (id == 10) {
-      this.checkWork = true;
-    } else {
-      this.checkWork = false;
+    console.log('workOther confirm');
+    if (this.profileData.workedId !== null) {
+      if (id === 10) {
+        this.checkWork = true;
+      } else {
+        this.checkWork = false;
+      }
     }
   }
 }

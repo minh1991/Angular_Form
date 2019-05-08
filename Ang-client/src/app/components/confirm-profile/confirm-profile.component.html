@@ -54,18 +54,18 @@
 
         <div class="form-group">
           <label for="">Degree: </label>
-          <input type="text" class="form-control" formControlName="degree" value="{{profileData.degree}}" [attr.disabled]="true">
+          <input type="text" class="form-control" formControlName="degree" value="{{profileData.degree[0].name}}" [attr.disabled]="true" required>
         </div>
 
         <div class="form-group">
           <label for="">Salary</label>
-          <input type="text" class="form-control" formControlName="salary" value="{{profileData.salary}}" [attr.disabled]="true">
+          <input type="text" class="form-control" formControlName="salary" value="{{profileData.salary[0].name}}" [attr.disabled]="true" required>
         </div>
 
         <h6>Skills:</h6>
         <div class="form-check" *ngFor="let item of profileData.skills">
           <label class="form-check-label" for="">
-            <input type="checkbox" class="form-check-input" required name="{{ item.name }}" value="{{ item.id }}"
+            <input type="checkbox" class="form-check-input"  name="{{ item.name }}" value="{{ item.id }}"
             [attr.disabled]="true" checked />{{ item.name }}
           </label>
         </div>
@@ -73,8 +73,7 @@
         <h5>Worked:</h5>
         <div class="form-check " *ngFor="let item of worksOrders">
           <label class="form-check-label">
-            <input class="form-check-input col-6" type="radio" value="{{ item.id }}" [(ngModel)]="profileData.workedId"
-              required formControlName="worked" [attr.disabled]="true"/>{{ item.value }}
+            <input class="form-check-input col-6" type="radio" required value="{{ item.id }}" [(ngModel)]="profileData.workedId" formControlName="worked" [attr.disabled]="true"/>{{ item.value }}
           </label>
         </div>
         <div *ngIf="checkWork">
