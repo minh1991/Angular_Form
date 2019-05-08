@@ -14,7 +14,12 @@ import { UploadImgComponent } from './../components/upload-img/upload-img.compon
 @NgModule({
   declarations: [TableComponent, AddProfileComponent, ConfirmProfileComponent, UploadImgComponent],
   exports: [TableComponent, AddProfileComponent, UploadImgComponent],
-  imports: [CommonModule, FormsModule, ReactiveFormsModule, HttpClientModule, FileUploadModule],
+  imports: [
+    CommonModule,
+    FormsModule,
+    ReactiveFormsModule.withConfig({warnOnNgModelWithFormControl: 'never'}),
+    HttpClientModule,
+    FileUploadModule],
 providers: [ProfileService]
 })
 export class ProfileModule {}

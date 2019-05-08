@@ -14,7 +14,7 @@
 
         <div class="form-group">
           <label for="">Full Name: </label>
-          <input type="text" value="{{profileData.fullname}}" disabled class="form-control"
+          <input type="text" value="{{profileData.fullname}}" [attr.disabled]="true" class="form-control"
             formControlName="fullname" />
         </div>
 
@@ -23,12 +23,12 @@
           <div class="form-check form-check-inline">
             <label class="form-check-label">
               <input class="form-check-input" type="radio" value="1" [(ngModel)]="profileData.gender"
-                formControlName="gender" checked disabled />
+                formControlName="gender" checked [attr.disabled]="true" />
               Nam
             </label>
             <label class="form-check-label">
               <input class="form-check-input" type="radio" value="2" [(ngModel)]="profileData.gender"
-                formControlName="gender" checked disabled />
+                formControlName="gender" checked [attr.disabled]="true" />
               Nữ
             </label>
           </div>
@@ -37,36 +37,36 @@
         <div class="form-group">
           <label for="">Birthday: </label>
           <input type="date" class="form-control" required formControlName="birthday" value="{{profileData.birthday}}"
-            disabled />
+          [attr.disabled]="true" />
         </div>
 
         <div class="form-group">
           <label for="">Address: </label>
           <input type="text" class="form-control" required formControlName="address" value="{{profileData.address}}"
-            disabled />
+          [attr.disabled]="true" />
         </div>
 
         <div class="form-group">
           <label for="">Phone: </label>
           <input type="number" class="form-control" appZipValidator formControlName="phone"
-            value="{{profileData.phone}}" disabled />
+            value="{{profileData.phone}}" [attr.disabled]="true" />
         </div>
 
         <div class="form-group">
           <label for="">Degree: </label>
-          <input type="text" class="form-control" formControlName="degree" value="{{profileData.degree}}" disabled>
+          <input type="text" class="form-control" formControlName="degree" value="{{profileData.degree}}" [attr.disabled]="true">
         </div>
 
         <div class="form-group">
           <label for="">Salary</label>
-          <input type="text" class="form-control" formControlName="salary" value="{{profileData.salary}}" disabled>
+          <input type="text" class="form-control" formControlName="salary" value="{{profileData.salary}}" [attr.disabled]="true">
         </div>
 
         <h6>Skills:</h6>
         <div class="form-check" *ngFor="let item of profileData.skills">
           <label class="form-check-label" for="">
             <input type="checkbox" class="form-check-input" required name="{{ item.name }}" value="{{ item.id }}"
-              disabled checked />{{ item.name }}
+            [attr.disabled]="true" checked />{{ item.name }}
           </label>
         </div>
 
@@ -74,17 +74,17 @@
         <div class="form-check " *ngFor="let item of worksOrders">
           <label class="form-check-label">
             <input class="form-check-input col-6" type="radio" value="{{ item.id }}" [(ngModel)]="profileData.workedId"
-              required formControlName="worked" />{{ item.value }}
+              required formControlName="worked" [attr.disabled]="true"/>{{ item.value }}
           </label>
         </div>
         <div *ngIf="checkWork">
-          <input type="text" id="inputother" value="{{profileData.worked}}" />
+          <input type="text" id="inputother" value="{{profileData.worked}}" [attr.disabled]="true"/>
         </div>
 
         <div class="form-group">
           <label for="">Status: </label>
           <textarea class="form-control" rows="3" required formControlName="status" value="{{profileData.status}}"
-            disabled></textarea>
+          [attr.disabled]="true"></textarea>
         </div>
 
         <div class="form-group">
@@ -95,12 +95,12 @@
         <div class="row">
           <div class="form-group">
             <button class="btn btn-primary col-12 " id="add-button" (click)="resetForm(addProfileForm)">
-              reset
+              Back
             </button>
           </div>
           <div class="form-group">
             <button class="btn btn-primary col-12 " id="add-button" (click)="onSubmitAddForm(addProfileForm)">
-              Next
+              Submits
             </button>
           </div>
         </div>
