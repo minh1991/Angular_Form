@@ -24,6 +24,7 @@ export class AddProfileComponent implements OnInit {
   salaryOrders: Array<any> = Constant.SALARYORDERS;
   skillsOrders: Array<any> = Constant.SKILLSORDERS;
   worksOrders: Array<any> = Constant.WORKSORDERS;
+  dataFromConfirm: any = [];
 
   constructor(
     private router: Router,
@@ -48,7 +49,16 @@ export class AddProfileComponent implements OnInit {
       status: ['', Validators.required],
       imgULR: ['', Validators.required]
     });
+    this.dataFromConfirm = this.getDataFromConFirm();
+    console.log('dataConfirm--', this.dataFromConfirm);
+    this.addProfileForm.patchValue(this.dataFromConfirm.value);
   }
+  getDataFromConFirm() {
+    const data = this.profileService.getData();
+    console.log('dataBack--', data.source);
+    return data.source;
+  }
+
   workOther(id) {
     if (id === 10) {
       this.checkWork = true;
@@ -111,6 +121,8 @@ export class AddProfileComponent implements OnInit {
   }
 
   onSubmitAddForm(addProfileForm) {
+    // console.log('aaaa');
+    // console.log(this.addProfileForm.value);
     this.addProfileForm.value.skills = this.selectedSkillsValues;
     // console.log("form data  ", addProfileForm.value);
     const formData = this.addProfileForm.value;

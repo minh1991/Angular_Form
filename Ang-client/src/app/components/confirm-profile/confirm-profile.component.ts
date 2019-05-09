@@ -3,6 +3,7 @@ import { ProfileService } from './../../services/profile.service';
 import { Router } from '@angular/router';
 import { FormGroup, FormBuilder } from '@angular/forms';
 import { Constant } from './../../supposts/constant';
+import {Location} from '@angular/common';
 
 @Component({
   selector: 'app-confirm-profile',
@@ -10,7 +11,6 @@ import { Constant } from './../../supposts/constant';
   styleUrls: ['./confirm-profile.component.css']
 })
 export class ConfirmProfileComponent implements OnInit {
-
   addFromData: any = {};
   profileData: any = [];
   confirmProfileForm: FormGroup;
@@ -24,6 +24,7 @@ export class ConfirmProfileComponent implements OnInit {
     private router: Router,
     private formBuilder: FormBuilder,
     private profileService: ProfileService,
+    private location: Location,
   ) { }
 
   ngOnInit() {
@@ -46,6 +47,7 @@ export class ConfirmProfileComponent implements OnInit {
     });
     this.workOther(this.profileData.workedId);
     console.log('profileData', this.profileData);
+    console.log('addFromData',  this.addFromData.source.value);
   }
 
 
@@ -136,5 +138,11 @@ export class ConfirmProfileComponent implements OnInit {
         this.router.navigate(['all']);
       });
     }
+  }
+
+  backToAdd() {
+    console.log('back ConFirm--', this.addFromData.source.value);
+    this.profileService.pushData(this.addFromData.source.value);
+    this.location.back();
   }
 }
