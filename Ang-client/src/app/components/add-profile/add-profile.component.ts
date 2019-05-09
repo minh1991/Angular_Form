@@ -4,6 +4,7 @@ import { ProfileService } from './../../services/profile.service';
 import { Router } from '@angular/router';
 // import {ProfileModel} from '../../models/profile.model';
 import { Messenger } from './../../supposts/message';
+import { String } from 'typescript-string-operations';
 import { Constant } from './../../supposts/constant';
 
 
@@ -25,6 +26,7 @@ export class AddProfileComponent implements OnInit {
   skillsOrders: Array<any> = Constant.SKILLSORDERS;
   worksOrders: Array<any> = Constant.WORKSORDERS;
   dataFromConfirm: any = [];
+  errorValidateFieldAddProfile: Array<any> = [];
 
   constructor(
     private router: Router,
@@ -47,24 +49,15 @@ export class AddProfileComponent implements OnInit {
       worked: ['', Validators.required],
       workedId: [],
       status: ['', Validators.required],
-      imgULR: ['', Validators.required]
+      imgULR: ['']
     });
     this.dataFromConfirm = this.getDataFromConFirm();
-    console.log('dataConfirm--', this.dataFromConfirm);
     this.addProfileForm.patchValue(this.dataFromConfirm.value);
   }
   getDataFromConFirm() {
     const data = this.profileService.getData();
     console.log('dataBack--', data.source);
     return data.source;
-  }
-
-  workOther(id) {
-    if (id === 10) {
-      this.checkWork = true;
-    } else {
-      this.checkWork = false;
-    }
   }
 
   addSkillsControls() {
@@ -83,9 +76,9 @@ export class AddProfileComponent implements OnInit {
         this.selectedSkillsValues.push(this.skillsOrders[i]);
       }
     });
-    // console.log(this.selectedSkillsValues);
-
+    console.log('selectedSkillsValues--', this.selectedSkillsValues);
     this.skillsErrors = this.selectedSkillsValues.length > 0 ? false : true;
+    console.log('skillsErrors--', this.skillsErrors);
   }
   checkSkillsTouched() {
     let flg = false;
@@ -95,6 +88,14 @@ export class AddProfileComponent implements OnInit {
       }
     });
     return flg;
+  }
+
+  workOther(id) {
+    if (id === 10) {
+      this.checkWork = true;
+    } else {
+      this.checkWork = false;
+    }
   }
 
   resetForm(form?: NgForm) {
@@ -120,9 +121,106 @@ export class AddProfileComponent implements OnInit {
     }
   }
 
+  public get formAddProfile() {
+    return this.addProfileForm.controls;
+  }
+  showErrors(messager) {
+    // console.log(messager);
+    this.errorValidateFieldAddProfile.push(messager);
+    console.log(this.errorValidateFieldAddProfile);
+  }
   onSubmitAddForm(addProfileForm) {
-    // console.log('aaaa');
-    // console.log(this.addProfileForm.value);
+    // validate
+    this.errorValidateFieldAddProfile = [];
+    if (this.addProfileForm.invalid) {
+      if (this.formAddProfile.fullname.errors) {
+        if (this.formAddProfile.fullname.errors.required) {
+          this.showErrors({ fullname: String.Format(Messenger.MSG0002, 'fullname') });
+        }
+      } else {
+        this.showErrors({ fullname: '' });
+      }
+
+      if (this.formAddProfile.gender.errors) {
+        if (this.formAddProfile.gender.errors.required) {
+          this.showErrors({ gender: String.Format(Messenger.MSG0002, 'gender') });
+        }
+      } else {
+        this.showErrors({ gender: '' });
+      }
+
+      if (this.formAddProfile.birthday.errors) {
+        if (this.formAddProfile.birthday.errors.required) {
+          this.showErrors({ birthday: String.Format(Messenger.MSG0002, 'birthday') });
+        }
+        if (this.formAddProfile.birthday.errors.pattern) {
+          this.showErrors({birthday: String.Format(Messenger.MSG0001, 'birthday')});
+        }
+      } else {
+        this.showErrors({ birthday: '' });
+      }
+
+      if (this.formAddProfile.address.errors) {
+        if (this.formAddProfile.address.errors.required) {
+          this.showErrors({ address: String.Format(Messenger.MSG0002, 'address') });
+        }
+      } else {
+        this.showErrors({ address: '' });
+      }
+
+      if (this.formAddProfile.phone.errors) {
+        if (this.formAddProfile.phone.errors.required) {
+          this.showErrors({ phone: String.Format(Messenger.MSG0002, 'phone') });
+        }
+        if (this.formAddProfile.phone.errors.pattern) {
+          this.showErrors({phone: String.Format(Messenger.MSG0001, 'phone')});
+        }
+      } else {
+        this.showErrors({ phone: '' });
+      }
+
+      if (this.formAddProfile.degree.errors) {
+        if (this.formAddProfile.degree.errors.required) {
+          this.showErrors({ degree: String.Format(Messenger.MSG0002, 'degree') });
+        }
+      } else {
+        this.showErrors({ degree: '' });
+      }
+
+      if (this.formAddProfile.salary.errors) {
+        if (this.formAddProfile.salary.errors.required) {
+          this.showErrors({ salary: String.Format(Messenger.MSG0002, 'salary') });
+        }
+      } else {
+        this.showErrors({ salary: '' });
+      }
+
+      if (this.formAddProfile.skills.errors) {
+        if (this.formAddProfile.skills.errors.required) {
+          this.showErrors({ skills: String.Format(Messenger.MSG0002, 'skills') });
+        }
+      } else {
+        this.showErrors({ skills: '' });
+      }
+
+      if (this.formAddProfile.worked.errors) {
+        if (this.formAddProfile.worked.errors.required) {
+          this.showErrors({ worked: String.Format(Messenger.MSG0002, 'worked') });
+        }
+      } else {
+        this.showErrors({ worked: '' });
+      }
+
+      if (this.formAddProfile. status.errors) {
+        if (this.formAddProfile. status.errors.required) {
+          this.showErrors({  status: String.Format(Messenger.MSG0002, ' status') });
+        }
+      } else {
+        this.showErrors({ status: '' });
+      }
+      return true;
+    }
+
     this.addProfileForm.value.skills = this.selectedSkillsValues;
     // console.log("form data  ", addProfileForm.value);
     const formData = this.addProfileForm.value;
@@ -134,17 +232,5 @@ export class AddProfileComponent implements OnInit {
     }
     console.log('123' + formData);
     this.router.navigate(['confirm-profile']);
-
-    // if (formData._id == "") {
-    //   this.profileService.postProfile(formData).subscribe(data => {
-    //     console.log(`Creat New dataForm: ${data}`);
-    //     this.router.navigate(["confirm-profile"]);
-    //   });
-    // } else {
-    //   this.profileService.updatePutProfile(formData).subscribe(data => {
-    //     console.log(`Update dataForm: ${data}`);
-    //     this.router.navigate(["confirm-profile"]);
-    //   });
-    // }
   }
 }

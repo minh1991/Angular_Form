@@ -15,6 +15,9 @@
         <div class="form-group">
           <label for="">Full Name: </label>
           <input type="text" required maxlength="40" minlength="2" class="form-control" formControlName="fullname" />
+          <ng-container >
+            <span class="text-danger" *ngIf="errorValidateFieldAddProfile[0] && errorValidateFieldAddProfile[0].fullname">{{errorValidateFieldAddProfile[0].fullname}}</span>
+          </ng-container>
         </div>
 
         <div class="col-6">
@@ -29,21 +32,35 @@
               Nữ
             </label>
           </div>
+          <div>
+            <ng-container >
+              <span class="text-danger" *ngIf="errorValidateFieldAddProfile[1] && errorValidateFieldAddProfile[1].gender">{{errorValidateFieldAddProfile[1].gender}}</span>
+            </ng-container>
+          </div> 
         </div>
 
         <div class="form-group">
           <label for="">Birthday: </label>
           <input type="date" class="form-control" required formControlName="birthday" />
+          <ng-container >
+            <span class="text-danger" *ngIf="errorValidateFieldAddProfile[2] && errorValidateFieldAddProfile[2].birthday">{{errorValidateFieldAddProfile[2].birthday}}</span>
+          </ng-container>
         </div>
 
         <div class="form-group">
           <label for="">Address: </label>
           <input type="text" class="form-control" required formControlName="address" />
+          <ng-container >
+              <span class="text-danger" *ngIf="errorValidateFieldAddProfile[3] && errorValidateFieldAddProfile[3].address">{{errorValidateFieldAddProfile[3].address}}</span>
+            </ng-container>
         </div>
 
         <div class="form-group">
           <label for="">Phone: </label>
           <input type="text" class="form-control" appZipValidator formControlName="phone" />
+          <ng-container >
+              <span class="text-danger" *ngIf="errorValidateFieldAddProfile[4] && errorValidateFieldAddProfile[4].phone">{{errorValidateFieldAddProfile[4].phone}}</span>
+            </ng-container>
         </div>
 
         <div class="form-group">
@@ -52,6 +69,9 @@
             <option selected value="">Lựa chọn...</option>
             <option *ngFor="let item of degreeOrders" [value]="item.id">{{item.name}}</option>
           </select>
+          <ng-container >
+              <span class="text-danger" *ngIf="errorValidateFieldAddProfile[5] && errorValidateFieldAddProfile[5].degree">{{errorValidateFieldAddProfile[5].degree}}</span>
+            </ng-container>
         </div>
 
         <div class="form-group">
@@ -60,6 +80,9 @@
             <option selected value="">Lựa chọn...</option>
             <option *ngFor="let item of salaryOrders" [value]="item.id">{{item.name}}</option>
           </select>
+          <ng-container >
+              <span class="text-danger" *ngIf="errorValidateFieldAddProfile[6] && errorValidateFieldAddProfile[6].salary">{{errorValidateFieldAddProfile[6].salary}}</span>
+            </ng-container>
         </div>
 
         <h6>Skills:</h6>
@@ -69,7 +92,7 @@
               [formControl]="control" id="checkBox{{ i }}" />{{ skillsOrders[i].name }}
           </label>
         </div>
-        <small class="custom-invalid-feedback form-text " *ngIf="skillsErrors && checkSkillsTouched()"
+        <small class="custom-invalid-feedback form-text " *ngIf="skillsErrors"
           style="background: red; color: white; font-weight: 500">
           Không được bỏ trống
         </small>
@@ -86,7 +109,10 @@
         <div *ngIf="checkWork == true">
           <input type="text" id="inputother" formControlName="worked" />
         </div>
-        <input type="hidden" value="workedId" formControlName="workedId">
+        <input type="hidden" value="workedId" formControlName="workedId"  [attr.disabled]="true" >
+        <ng-container >
+            <span class="text-danger" *ngIf="errorValidateFieldAddProfile[8] && errorValidateFieldAddProfile[8].worked">{{errorValidateFieldAddProfile[8].worked}}</span>
+          </ng-container>
         <!-- 
         <div class="form-check " *ngFor="let item of worksOrders; let i = index">
          
@@ -95,8 +121,11 @@
         <div class="form-group">
           <label for="">Status: </label>
           <textarea class="form-control" rows="3" required formControlName="status"></textarea>
+          <ng-container >
+              <span class="text-danger" *ngIf="errorValidateFieldAddProfile[9] && errorValidateFieldAddProfile[9].status">{{errorValidateFieldAddProfile[9].status}}</span>
+            </ng-container>
         </div>
-        
+
         <div class="form-group">
           <app-upload-img></app-upload-img>
         </div>
