@@ -20,7 +20,7 @@ export class AddProfileComponent implements OnInit {
   formArr: Array<any> = [];
   selectedSkillsValues = [];
   // tslint:disable-next-line:ban-types
-  skillsErrors: Boolean = true;
+  skillsErrors: Boolean = false;
   degreeOrders: Array<any> = Constant.DEGREEORDERS;
   salaryOrders: Array<any> = Constant.SALARYORDERS;
   skillsOrders: Array<any> = Constant.SKILLSORDERS;
@@ -77,8 +77,15 @@ export class AddProfileComponent implements OnInit {
       }
     });
     console.log('selectedSkillsValues--', this.selectedSkillsValues);
-    this.skillsErrors = this.selectedSkillsValues.length > 0 ? false : true;
+    this.skillsErrors = this.selectedSkillsValues.length > 0 ? true : false;
     console.log('skillsErrors--', this.skillsErrors);
+    /////
+    // let flg = false;
+    // this.skillsArr.controls.forEach(control => {
+    //   if (control.touched) {
+    //     this.skillsErrors = !this.skillsErrors;
+    //   }
+    // });
   }
   checkSkillsTouched() {
     let flg = false;
@@ -127,7 +134,7 @@ export class AddProfileComponent implements OnInit {
   showErrors(messager) {
     // console.log(messager);
     this.errorValidateFieldAddProfile.push(messager);
-    console.log(this.errorValidateFieldAddProfile);
+    // console.log(this.errorValidateFieldAddProfile);
   }
   onSubmitAddForm(addProfileForm) {
     // validate
@@ -195,11 +202,11 @@ export class AddProfileComponent implements OnInit {
         this.showErrors({ salary: '' });
       }
 
-      if (this.formAddProfile.skills.errors) {
-        if (this.formAddProfile.skills.errors.required) {
-          this.showErrors({ skills: String.Format(Messenger.MSG0002, 'skills') });
-        }
+      if (this.selectedSkillsValues.length === 0) {
+        this.skillsErrors  = true;
+        this.showErrors({ skills: String.Format(Messenger.MSG0002, 'skills') });
       } else {
+        this.skillsErrors  = false;
         this.showErrors({ skills: '' });
       }
 
@@ -218,11 +225,11 @@ export class AddProfileComponent implements OnInit {
       } else {
         this.showErrors({ status: '' });
       }
-      return true;
+      // return true;
     }
 
     this.addProfileForm.value.skills = this.selectedSkillsValues;
-    // console.log("form data  ", addProfileForm.value);
+    console.log('form data', addProfileForm.value);
     const formData = this.addProfileForm.value;
     this.profileService.pushData(formData);
     if (Number(formData.worked)) {

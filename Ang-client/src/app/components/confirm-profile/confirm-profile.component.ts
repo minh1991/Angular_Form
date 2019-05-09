@@ -103,7 +103,7 @@ export class ConfirmProfileComponent implements OnInit {
   }
 
   submitConfirmForm(confirmProfileForm) {
-    // console.log('addFromData--',  this.addFromData.source.value);
+    console.log('addFromData--',  this.addFromData.source.value);
     const dataConvedToDB = {
       _id : this.addFromData.source.value._id,
       fullname: this.addFromData.source.value.fullname,

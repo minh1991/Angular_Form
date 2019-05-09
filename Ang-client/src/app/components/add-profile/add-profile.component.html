@@ -41,7 +41,7 @@
 
         <div class="form-group">
           <label for="">Birthday: </label>
-          <input type="date" class="form-control" required formControlName="birthday" />
+          <input type="text" class="form-control" required formControlName="birthday"/>
           <ng-container >
             <span class="text-danger" *ngIf="errorValidateFieldAddProfile[2] && errorValidateFieldAddProfile[2].birthday">{{errorValidateFieldAddProfile[2].birthday}}</span>
           </ng-container>
@@ -92,10 +92,13 @@
               [formControl]="control" id="checkBox{{ i }}" />{{ skillsOrders[i].name }}
           </label>
         </div>
-        <small class="custom-invalid-feedback form-text " *ngIf="skillsErrors"
+        <!-- <small class="custom-invalid-feedback form-text " *ngIf="skillsErrors"
           style="background: red; color: white; font-weight: 500">
           Không được bỏ trống
-        </small>
+        </small> -->
+        <ng-container *ngIf="skillsErrors">
+            <span class="text-danger" *ngIf="errorValidateFieldAddProfile[7] && errorValidateFieldAddProfile[7].skills">{{errorValidateFieldAddProfile[7].skills}}</span>
+          </ng-container>
 
         <h5>Worked:</h5>
 
