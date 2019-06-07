@@ -105,31 +105,27 @@ module.exports = {
         status: req.body.status,
         imgULR: req.body.imgULR
       }
-      Profile.findByIdAndUpdate(
-        req.params.id,
-        { $set: inputFields },
-        { new: true },
-        (err, doc) => {
-          if (!err) {
-            return res.status(httpcodes.ACCEPTED).json(doc)
-          } else {
-            console.log(
-              'Update profile errors: ' + JSON.stringify(err, undefined, 2)
-            )
-            return res.status(httpcodes.BAD_REQUEST).json(err)
-          }
+      Profile.findOneAndUpdate(req.params._id, { $set: inputFields }, { new: true }, (err, doc) => {
+        if (!err) {
+          return res.status(httpcodes.ACCEPTED).json(doc)
+        } else {
+          console.log(
+            'Update profile errors: ' + JSON.stringify(err, undefined, 2)
+          )
+          return res.status(httpcodes.BAD_REQUEST).json(err)
         }
+      }
       )
     }
   },
 
   async deleteProfile(req, res) {
-    if (!ObjectId.isValid(req.params.id)) {
+    if (!ObjectId.isValid(req.params._id)) {
       return res
         .status(httpcodes.BAD_REQUEST)
-        .json(`không có id: ${req.params.id}`)
+        .json(`không có id: ${req.params._id}`)
     } else {
-      Profile.findByIdAndRemove(req.params.id, (err, doc) => {
+      Profile.findOneAndRemove(req.params._id, (err, doc) => {
         if (!err) {
           return res.status(httpcodes.ACCEPTED).json(doc)
         } else {

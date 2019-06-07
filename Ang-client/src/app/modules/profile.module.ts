@@ -8,14 +8,15 @@ import { AddProfileComponent } from './../components/add-profile/add-profile.com
 import { HttpClientModule } from '@angular/common/http';
 import { ConfirmProfileComponent } from './../components/confirm-profile/confirm-profile.component';
 import { UploadImgComponent } from './../components/upload-img/upload-img.component';
+import { EditProfileComponent } from './../edit-profile/edit-profile.component';
 
 
 
 @NgModule({
-  declarations: [TableComponent, AddProfileComponent, ConfirmProfileComponent, UploadImgComponent],
+  declarations: [TableComponent, AddProfileComponent, ConfirmProfileComponent, UploadImgComponent, EditProfileComponent],
   exports: [TableComponent, AddProfileComponent, UploadImgComponent],
   imports: [
-    CommonModule,
+  CommonModule,
     FormsModule,
     ReactiveFormsModule.withConfig({warnOnNgModelWithFormControl: 'never'}),
     HttpClientModule,

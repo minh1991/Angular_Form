@@ -4,6 +4,7 @@ import { AuthComponent } from './../components/auth/auth.component';
 import { TableComponent } from './../components/table/table.component';
 import { AddProfileComponent } from './../components/add-profile/add-profile.component';
 import { ConfirmProfileComponent } from './../components/confirm-profile/confirm-profile.component';
+import { EditProfileComponent } from './../edit-profile/edit-profile.component';
 const routes: Routes = [
   {
     path: '',
@@ -11,12 +12,12 @@ const routes: Routes = [
   },
   { path: 'all', component: TableComponent },
   { path: 'add-profile', component: AddProfileComponent },
-  { path: 'confirm-profile', component: ConfirmProfileComponent }
+  { path: 'confirm-profile', component: ConfirmProfileComponent },
+  { path: 'edit-profile', component: EditProfileComponent}
 ];
 
 @NgModule({
   imports: [RouterModule.forRoot(routes)],
-
   exports: [RouterModule]
 })
 export class AuthRoutingModule {}

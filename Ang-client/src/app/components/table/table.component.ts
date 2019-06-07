@@ -29,7 +29,7 @@ export class TableComponent implements OnInit {
   }
   updateProfile(profile: ProfileModel) {
     this.profileService.selectedProfile = profile;
-    this.router.navigate(['add-profile']);
+    this.router.navigate(['edit-profile']);
   }
 
   // tslint:disable-next-line:variable-name
